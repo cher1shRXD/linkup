@@ -22,12 +22,14 @@ export const MyInfoWrap = styled(ThemedBox)`
   flex-direction:row;
   margin-bottom: 30px;
 `
-export const MyProfilePicture = styled.View`
-  width:70px;
-  height:70px;
-  border-radius:5px;
-  background-color:#ccc;
-`
+export const MyProfilePicture = styled.Image`
+  width: 70px;
+  height: 70px;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
+  background-color: #ccc;
+`;
 export const MyInfo = styled.View`
   flex:1;
   height:100%;
@@ -63,10 +65,12 @@ export const FriendInfo = styled.View`
   height: 100%;
   padding: 7px;
 `;
-export const FriendPicture = styled.View`
+export const FriendPicture = styled.Image`
   width: 50px;
   height: 50px;
   border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
   background-color: #ccc;
 `;
 export const FriendName = styled(ThemedText)`

@@ -10,7 +10,7 @@ const Intro = () => {;
 
   return (
     <S.Container>
-      <S.Title>Welcome To ChatApp</S.Title>
+      <S.Title>Welcome To L!NKUP</S.Title>
       <S.Filler></S.Filler>
       <S.ButtonWrap>
         <S.Button

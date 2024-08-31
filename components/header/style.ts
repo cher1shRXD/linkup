@@ -5,8 +5,9 @@ export const Container = styled(ThemedView)`
   width:100%;
   height:50px;
   display:flex;
-  align-items:flex-start;
-  justify-content:center;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
   padding: 0 15px;
   box-sizing:border-box;
   margin-top:50px;

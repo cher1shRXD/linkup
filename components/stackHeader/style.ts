@@ -5,6 +5,10 @@ export const Header = styled.View`
   height: 50px;
   margin-top: 40px;
   padding: 0 10px;
+  justify-content:center;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
 `;
 export const BackWrap = styled.TouchableOpacity`
   display: flex;

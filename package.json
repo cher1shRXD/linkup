@@ -17,10 +17,12 @@
     "@react-navigation/stack": "^6.4.1",
     "axios": "^1.7.5",
     "expo": "~51.0.28",
+    "expo-linear-gradient": "^13.0.2",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
     "react-native": "0.74.5",
     "react-native-modal-datetime-picker": "^18.0.0",
+    "react-native-reanimated": "~3.10.1",
     "zustand": "^4.5.5"
   },
   "devDependencies": {

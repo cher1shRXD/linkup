@@ -18,9 +18,10 @@ import Login from "../auth/login";
 import Email from "../auth/email";
 import Password from "../auth/password";
 import Name from "../auth/name";
-import Nickname from "../auth/nickname";
+import UserId from "../auth/userId";
 import Phone from "../auth/phone";
 import Personal from "../auth/personal";
+import Notification from "../notification";
 
 const FriendStackScreen = () => {
   const FriendStack = createStackNavigator();
@@ -96,7 +97,7 @@ const AuthStackScreen = () => {
       <AuthStack.Screen name="PasswordScreen" component={Password} />
       <AuthStack.Screen name="NameScreen" component={Name} />
       <AuthStack.Screen name="PhoneScreen" component={Phone} />
-      <AuthStack.Screen name="NicknameScreen" component={Nickname} />
+      <AuthStack.Screen name="NicknameScreen" component={UserId} />
       <AuthStack.Screen name="PersonalScreen" component={Personal} />
     </AuthStack.Navigator>
   );
@@ -120,7 +121,15 @@ const Router = () => {
       screenOptions={{ headerShown: false, gestureEnabled: false }}
     >
       <MainStack.Screen name="TabScreen" component={TabScreen} />
-      <MainStack.Screen name="AuthScreen" component={AuthStackScreen} options={{presentation:'transparentModal'}}/>
+      <MainStack.Screen
+        name="AuthScreen"
+        component={AuthStackScreen}
+        options={{ presentation: "transparentModal" }}
+      />
+      <MainStack.Screen
+        name="NotiScreen"
+        component={Notification}
+      />
     </MainStack.Navigator>
   );
 };

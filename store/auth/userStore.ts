@@ -10,11 +10,10 @@ export interface UserStore {
 
 export const userStore = create<UserStore>((set) => ({
   user: {
-    id: 0,
     nickname: "",
     email: "",
-    name: "",
-    phone: "",
+    realName: "",
+    phoneNumber: "",
     birthday: "",
     gender: "",
     statusMessage: "",
@@ -24,11 +23,10 @@ export const userStore = create<UserStore>((set) => ({
   clearUser: () =>
     set({
       user: {
-        id: 0,
         nickname: "",
         email: "",
-        name: "",
-        phone: "",
+        realName: "",
+        phoneNumber: "",
         birthday: "",
         gender: "",
         statusMessage: "",

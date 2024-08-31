@@ -1,10 +1,14 @@
 import { RefreshControl, ScrollView, TouchableOpacity } from "react-native";
 import Header from "../../header";
 import * as S from "./style";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTheme } from "../../../context/theme/themeContext";
 import { Ionicons } from "@expo/vector-icons";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { NavigationProp, useFocusEffect, useNavigation } from "@react-navigation/native";
+import Skeleton from "../../skeleton";
+import useGetMe from "../../../hooks/auth/useGetMe";
+import { userStore } from "../../../store/auth/userStore";
+import tokenStore from "../../../store/auth/tokenStore";
 
 
 const DummyFriend = [
@@ -68,19 +72,31 @@ const DummyFriend = [
     nickname: "전민오",
     statusMessage: "나르샤하기 싫다",
   },
-  
+
 ];
 
 const Friends = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { theme } = useTheme();
-  const navigation = useNavigation<NavigationProp<any>>()
+  const { ...me } = useGetMe();
+
+  const user = userStore(state=>state.user);
+  const ACCESS_TOKEN = tokenStore(state=>state.accessToken);
+
+  const navigation = useNavigation<NavigationProp<any>>();
+
+  useEffect(()=>{
+    if (ACCESS_TOKEN) {
+      me.getMe();
+    }
+  },[ACCESS_TOKEN]);
 
   const onRefresh = () => {
     setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 1000);
+    if(ACCESS_TOKEN){
+      me.getMe();
+    }
+    setRefreshing(false);
   };
 
   return (
@@ -94,10 +110,22 @@ const Friends = () => {
       >
         <S.SectionTitle>내 프로필</S.SectionTitle>
         <S.MyInfoWrap>
-          <S.MyProfilePicture></S.MyProfilePicture>
+          {me.loading ? (
+            <Skeleton width={70} height={70} style={{ borderRadius: 5 }} />
+          ) : (
+            <S.MyProfilePicture src={user.profileImage} />
+          )}
           <S.MyInfo>
-            <S.MyName>김태우</S.MyName>
-            <S.MyStatus>아 학교가기 싫다</S.MyStatus>
+            {me.loading ? (
+              <Skeleton width={100} height={20} style={{ borderRadius: 5 }} />
+            ) : (
+              <S.MyName>{user.realName}</S.MyName>
+            )}
+            {me.loading ? (
+              <Skeleton width={90} height={15} style={{ borderRadius: 5, marginTop:10 }} />
+            ) : (
+              <S.MyStatus>{user.statusMessage}</S.MyStatus>
+            )}
           </S.MyInfo>
         </S.MyInfoWrap>
         <S.SectionTitle>친구</S.SectionTitle>
@@ -107,7 +135,9 @@ const Friends = () => {
               border={theme.borderColor}
               key={idx}
               isLast={idx === DummyFriend.length - 1}
-              onPress={()=>{navigation.navigate('FriendDetail'),{id:1}}}
+              onPress={() => {
+                navigation.navigate("FriendDetail"), { id: 1 };
+              }}
             >
               <S.FriendPicture></S.FriendPicture>
               <S.FriendInfo>
@@ -117,7 +147,11 @@ const Friends = () => {
             </S.FriendBox>
           ))}
         </S.FriendsWrap>
-        <TouchableOpacity onPress={()=>{navigation.navigate('AddFriend')}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("AddFriend");
+          }}
+        >
           <S.AddFriend>
             <Ionicons name="add-outline" size={20} color={theme.textColor} />
           </S.AddFriend>

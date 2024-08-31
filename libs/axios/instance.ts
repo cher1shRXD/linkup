@@ -1,6 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import tokenStore from "../../store/auth/tokenStore";
 import { Alert } from "react-native";
+import { userStore } from "../../store/auth/userStore";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -41,6 +42,7 @@ instance.interceptors.response.use(
   (error: AxiosError) => {
     const { refreshToken, setAccessToken, setRefreshToken, clearTokens } =
       tokenStore.getState();
+    const { clearUser } = userStore.getState();
     const originalRequest = error.config as CustomAxiosRequestConfig;
 
     if (originalRequest.data instanceof FormData) {
@@ -67,7 +69,7 @@ instance.interceptors.response.use(
           })
           .catch((refreshError) => {
             clearTokens();
-            Alert.alert('토큰 만료', '서비스 이용을 위해 다시 로그인 해주세요')
+            clearUser();
             return Promise.reject(refreshError);
           });
       }

@@ -5,7 +5,7 @@ import * as S from './style'
 import useSignup from '../../../hooks/auth/useSignup';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 
-const Nickname = () => {
+const UserId = () => {
 
   const { theme } = useTheme();
   const { ...signup } = useSignup();
@@ -23,15 +23,15 @@ const Nickname = () => {
     <S.Container>
       <StackHeader title="뒤로가기" />
       <Pressable style={{ flex: 1, width: "100%" }} onPress={Keyboard.dismiss}>
-        <S.Title>닉네임을 알려주세요</S.Title>
-        <S.Subtitle>닉네임은 친구추가시 이용 됩니다.</S.Subtitle>
+        <S.Title>링크업 아이디를 만들어주세요</S.Title>
+        <S.Subtitle>링크업 아이디는 친구추가시 이용 됩니다.</S.Subtitle>
         <S.InputWrap>
           <S.Input
             style={{
               borderBottomColor: theme.textColor,
               color: theme.textColor,
             }}
-            placeholder="닉네임을 입력해주세요"
+            placeholder="링크업 아이디를 입력해주세요"
             value={signup.signupData.nickname}
             onChangeText={(e) => {
               signup.handleSignupData(e, "nickname");
@@ -47,4 +47,4 @@ const Nickname = () => {
   );
 }
 
-export default Nickname
+export default UserId
