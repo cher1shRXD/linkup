@@ -27,7 +27,7 @@ const Password = () => {
       Alert.alert('비밀번호 틀림','비밀번호가 틀립니다')
       return;
     }
-    navigation.navigate('NameScreen');
+    navigation.navigate('LinkupIdScreen');
   }
 
   return (

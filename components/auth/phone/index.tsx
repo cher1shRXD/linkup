@@ -23,11 +23,12 @@ const Phone = () => {
     }
     try {
       const res = await axios.get(
-        "https://119b-175-202-245-36.ngrok-free.app/auth/phone-number",
+        "https://eb1f-175-202-245-36.ngrok-free.app/auth/phone-number",
         {
-          params:{
-            phoneNumber: "+8210"+signup.signupData.phoneNumber.split('010')[1],
-          }
+          params: {
+            phoneNumber:
+              "+8210" + signup.signupData.phoneNumber.split("010")[1],
+          },
         }
       );
       if (res && !res.data.data) {

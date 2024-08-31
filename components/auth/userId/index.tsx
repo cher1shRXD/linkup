@@ -4,20 +4,45 @@ import StackHeader from '../../stackHeader'
 import * as S from './style'
 import useSignup from '../../../hooks/auth/useSignup';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+import axios from 'axios';
 
 const UserId = () => {
+  const [loading, setLoading] = useState<boolean>();
 
   const { theme } = useTheme();
   const { ...signup } = useSignup();
   const navigation = useNavigation<NavigationProp<any>>();
 
-  const submit = () => {
-    if(signup.signupData.nickname.trim() === '') {
-      Alert.alert('공백 방지','공백을 제외한 1글자 이상 입력해주세요')
+  const submit = async () => {
+    setLoading(true);
+    if (signup.signupData.phoneNumber.trim() === "") {
+      Alert.alert("공백 방지", "공백을 제외한 1글자 이상 입력해주세요");
+      setLoading(false);
       return;
     }
-    navigation.navigate('PersonalScreen');
-  }
+    try {
+      const res = await axios.get(
+        "https://eb1f-175-202-245-36.ngrok-free.app/auth/linkup-id",
+        {
+          params: {
+            linkupId: signup.signupData.linkupId
+          },
+        }
+      );
+      if (res && !res.data.data) {
+        navigation.navigate("PhoneScreen");
+      } else {
+        Alert.alert(
+          "이미 사용중인 링크업 아이디",
+          "해당 링크업 아이디가 이미 사용중입니다"
+        );
+      }
+    } catch {
+      Alert.alert("네트워크 에러");
+    }
+    setLoading(false);
+  };
 
   return (
     <S.Container>
@@ -32,14 +57,14 @@ const UserId = () => {
               color: theme.textColor,
             }}
             placeholder="링크업 아이디를 입력해주세요"
-            value={signup.signupData.nickname}
+            value={signup.signupData.linkupId}
             onChangeText={(e) => {
-              signup.handleSignupData(e, "nickname");
+              signup.handleSignupData(e, "linkupId");
             }}
           />
           <S.Filler></S.Filler>
-          <S.Button activeOpacity={0.7} onPress={submit}>
-            <S.ButtonText>다음</S.ButtonText>
+          <S.Button activeOpacity={0.7} onPress={submit} disabled={loading}>
+            <S.ButtonText>{loading ? "확인 중..." : "다음"}</S.ButtonText>
           </S.Button>
         </S.InputWrap>
       </Pressable>

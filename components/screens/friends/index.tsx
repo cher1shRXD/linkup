@@ -4,12 +4,15 @@ import * as S from "./style";
 import { useCallback, useEffect, useState } from "react";
 import { useTheme } from "../../../context/theme/themeContext";
 import { Ionicons } from "@expo/vector-icons";
-import { NavigationProp, useFocusEffect, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation,
+} from "@react-navigation/native";
 import Skeleton from "../../skeleton";
-import useGetMe from "../../../hooks/auth/useGetMe";
+import useGetMe from "../../../hooks/user/useGetMe";
 import { userStore } from "../../../store/auth/userStore";
 import tokenStore from "../../../store/auth/tokenStore";
-
 
 const DummyFriend = [
   {
@@ -72,7 +75,6 @@ const DummyFriend = [
     nickname: "전민오",
     statusMessage: "나르샤하기 싫다",
   },
-
 ];
 
 const Friends = () => {
@@ -80,20 +82,20 @@ const Friends = () => {
   const { theme } = useTheme();
   const { ...me } = useGetMe();
 
-  const user = userStore(state=>state.user);
-  const ACCESS_TOKEN = tokenStore(state=>state.accessToken);
+  const user = userStore((state) => state.user);
+  const ACCESS_TOKEN = tokenStore((state) => state.accessToken);
 
   const navigation = useNavigation<NavigationProp<any>>();
 
-  useEffect(()=>{
+  useEffect(() => {
     if (ACCESS_TOKEN) {
       me.getMe();
     }
-  },[ACCESS_TOKEN]);
+  }, [ACCESS_TOKEN]);
 
   const onRefresh = () => {
     setRefreshing(true);
-    if(ACCESS_TOKEN){
+    if (ACCESS_TOKEN) {
       me.getMe();
     }
     setRefreshing(false);
@@ -119,10 +121,14 @@ const Friends = () => {
             {me.loading ? (
               <Skeleton width={100} height={20} style={{ borderRadius: 5 }} />
             ) : (
-              <S.MyName>{user.realName}</S.MyName>
+              <S.MyName>{user.nickname}</S.MyName>
             )}
             {me.loading ? (
-              <Skeleton width={90} height={15} style={{ borderRadius: 5, marginTop:10 }} />
+              <Skeleton
+                width={90}
+                height={15}
+                style={{ borderRadius: 5, marginTop: 10 }}
+              />
             ) : (
               <S.MyStatus>{user.statusMessage}</S.MyStatus>
             )}

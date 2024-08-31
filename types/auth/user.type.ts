@@ -1,7 +1,7 @@
 export interface User {
   email: string;
   nickname: string;
-  realName: string;
+  linkupId: string;
   phoneNumber: string;
   birthday: string;
   gender: string;

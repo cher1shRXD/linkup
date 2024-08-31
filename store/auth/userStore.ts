@@ -12,7 +12,7 @@ export const userStore = create<UserStore>((set) => ({
   user: {
     nickname: "",
     email: "",
-    realName: "",
+    linkupId: "",
     phoneNumber: "",
     birthday: "",
     gender: "",
@@ -25,7 +25,7 @@ export const userStore = create<UserStore>((set) => ({
       user: {
         nickname: "",
         email: "",
-        realName: "",
+        linkupId: "",
         phoneNumber: "",
         birthday: "",
         gender: "",

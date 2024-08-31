@@ -44,7 +44,7 @@ const Tabs = ({state}:any) => {
       </S.TabItem>
       <S.TabItem activeOpacity={1} onPress={() => focusTo(3)}>
         <Ionicons
-          name={CURRENT_IDX === 3 ? "ellipsis-horizontal" : "ellipsis-horizontal-outline"}
+          name={CURRENT_IDX === 3 ? "settings" : "settings-outline"}
           size={30}
           color={theme.iconColor}
         />

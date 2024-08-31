@@ -8,7 +8,7 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 }
 
 const instance = axios.create({
-  baseURL: "https://119b-175-202-245-36.ngrok-free.app/",
+  baseURL: "https://eb1f-175-202-245-36.ngrok-free.app",
   headers: {
     Accept: "*/*",
   },
@@ -54,7 +54,7 @@ instance.interceptors.response.use(
       originalRequest._retry = true;
       if (refreshToken) {
         axios
-          .post(`https://119b-175-202-245-36.ngrok-free.app/auth/reissue`, {
+          .post(`https://eb1f-175-202-245-36.ngrok-free.app/auth/reissue`, {
             refreshToken,
           })
           .then((response) => {
@@ -74,7 +74,6 @@ instance.interceptors.response.use(
           });
       }
     }
-    return Promise.reject(error);
   }
 );
 

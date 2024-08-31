@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { SignupData } from "../../types/auth/auth.type";
+import { SignupData } from "../../types/auth/signup.type";
 
 export interface SignupDataStore {
   signupData: SignupData;
@@ -12,7 +12,7 @@ export const signupDataStore = create<SignupDataStore>((set) => ({
     email: "",
     password: "",
     nickname: "",
-    realName: "",
+    linkupId: "",
     phoneNumber: "",
     gender: "",
     birthday: null,
@@ -27,7 +27,7 @@ export const signupDataStore = create<SignupDataStore>((set) => ({
         email: "",
         password: "",
         nickname: "",
-        realName: "",
+        linkupId: "",
         phoneNumber: "",
         gender: "",
         birthday: null,

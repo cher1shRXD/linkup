@@ -23,7 +23,7 @@ const StackHeader = ({title,target}:{title:string,target?:string}) => {
       >
         <Ionicons
           name="chevron-back-outline"
-          size={30}
+          size={20}
           color={theme.textColor}
         />
         <ThemedText>{title}</ThemedText>

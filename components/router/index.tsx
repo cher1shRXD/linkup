@@ -2,22 +2,26 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import Friends from "../screens/friends";
-import FriendDetail from "../screens/friends/stack/friendDetail";
+import FriendDetail from "../stacks/friendDetail";
 import Tabs from "../tabs";
 import Chat from "../screens/chat";
-import ChatRoom from "../screens/chat/stack/chatRoom";
+import ChatRoom from "../stacks/chatRoom";
 import OpenChat from "../screens/openChat";
-import OpenChatRoom from "../screens/openChat/stack/openchatRoom";
+import OpenChatRoom from "../stacks/openchatRoom";
 import Settings from "../screens/settings";
-import SettingDetail from "../screens/settings/stack/settingDetail";
-import AddFriend from "../screens/friends/stack/addFriend";
+import EditProfile from "../stacks/editProfile";
+import AddFriend from "../stacks/addFriend";
 import Intro from "../auth/intro";
-import { NavigationProp, useFocusEffect, useNavigation } from "@react-navigation/native";
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation,
+} from "@react-navigation/native";
 import tokenStore from "../../store/auth/tokenStore";
 import Login from "../auth/login";
 import Email from "../auth/email";
 import Password from "../auth/password";
-import Name from "../auth/name";
+import Name from "../auth/nickname";
 import UserId from "../auth/userId";
 import Phone from "../auth/phone";
 import Personal from "../auth/personal";
@@ -63,7 +67,7 @@ const SettingStackScreen = () => {
   return (
     <FriendStack.Navigator screenOptions={{ headerShown: false }}>
       <FriendStack.Screen name="Settings" component={Settings} />
-      <FriendStack.Screen name="SettingDetail" component={SettingDetail} />
+      <FriendStack.Screen name="EditProfileScreen" component={EditProfile} />
     </FriendStack.Navigator>
   );
 };
@@ -82,7 +86,7 @@ const TabScreen = () => {
       <Tab.Screen name="SettingScreen" component={SettingStackScreen} />
     </Tab.Navigator>
   );
-}
+};
 
 const AuthStackScreen = () => {
   const AuthStack = createStackNavigator();
@@ -95,13 +99,13 @@ const AuthStackScreen = () => {
       <AuthStack.Screen name="LoginScreen" component={Login} />
       <AuthStack.Screen name="EmailScreen" component={Email} />
       <AuthStack.Screen name="PasswordScreen" component={Password} />
-      <AuthStack.Screen name="NameScreen" component={Name} />
+      <AuthStack.Screen name="LinkupIdScreen" component={Name} />
       <AuthStack.Screen name="PhoneScreen" component={Phone} />
       <AuthStack.Screen name="NicknameScreen" component={UserId} />
       <AuthStack.Screen name="PersonalScreen" component={Personal} />
     </AuthStack.Navigator>
   );
-}
+};
 
 const Router = () => {
   const MainStack = createStackNavigator();
@@ -111,7 +115,7 @@ const Router = () => {
   useFocusEffect(() => {
     if (!ACCESS_TOKEN) {
       navigation.navigate("AuthScreen");
-    }else{
+    } else {
       navigation.navigate("TabScreen");
     }
   });
@@ -126,10 +130,7 @@ const Router = () => {
         component={AuthStackScreen}
         options={{ presentation: "transparentModal" }}
       />
-      <MainStack.Screen
-        name="NotiScreen"
-        component={Notification}
-      />
+      <MainStack.Screen name="NotiScreen" component={Notification} />
     </MainStack.Navigator>
   );
 };
