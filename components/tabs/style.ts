@@ -3,13 +3,13 @@ import { ThemedView } from "../theme";
 
 export const Container = styled(ThemedView)`
   width:100%;
-  height:80px;
+  height:90px;
   display:flex;
   flex-direction:row;
   justify-content:center;
   align-items:center;
   box-sizing:border-box;
-  padding: 0 10px 30px 10px;
+  padding: 10px 10px 25px 10px;
 `
 export const TabItem = styled.TouchableOpacity`
   width:25%;

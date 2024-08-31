@@ -1,11 +1,12 @@
 import React from "react";
-import { View, Text, ViewStyle, TextStyle } from "react-native";
+import { View, Text, ViewStyle, TextStyle, TouchableOpacity, GestureResponderEvent } from "react-native";
 import { useTheme } from "../../context/theme/themeContext";
 
-type ThemedViewProps = {
+interface ThemedViewProps {
   style?: ViewStyle | ViewStyle[];
   children: React.ReactNode;
 };
+
 
 export const ThemedView: React.FC<ThemedViewProps> = ({ style, children }) => {
   const { theme } = useTheme();
