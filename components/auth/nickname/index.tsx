@@ -3,18 +3,20 @@ import { useTheme } from '../../../context/theme/themeContext';
 import StackHeader from '../../stackHeader'
 import * as S from './style'
 import useSignup from '../../../hooks/auth/useSignup';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 const Nickname = () => {
 
   const { theme } = useTheme();
   const { ...signup } = useSignup();
+  const navigation = useNavigation<NavigationProp<any>>();
 
   const submit = () => {
     if(signup.signupData.nickname.trim() === '') {
       Alert.alert('공백 방지','공백을 제외한 1글자 이상 입력해주세요')
       return;
     }
-    signup.submit();
+    navigation.navigate('PersonalScreen');
   }
 
   return (

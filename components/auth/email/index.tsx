@@ -21,22 +21,26 @@ const Email = () => {
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (signup.signupData.email.trim() === "") {
       Alert.alert("공백 방지", "공백을 제외한 1글자 이상 입력해주세요");
+      setLoading(false);
       return;
     }
     if(!REGEX.test(signup.signupData.email)) {
       Alert.alert("유효하지 않은 이메일", "올바른 이메일 형식으로 입력해주세요");
+      setLoading(false);
       return;
     }
     try{
-      const res = await axios.post('https://somewheretocheckemail.com',{email:signup.signupData.email});
-      if(res){
+      const res = await axios.get(
+        "https://119b-175-202-245-36.ngrok-free.app/auth/email",
+        { params: { email: signup.signupData.email } }
+      );
+      if(res && !res.data.data){
         navigation.navigate("PasswordScreen");
+      }else{
+        Alert.alert("이미 사용중인 이메일", "해당 이메일이 이미 사용중입니다");
       }
     }catch{
-      Alert.alert(
-        "이미 사용중인 이메일",
-        "해당 이메일이 이미 사용중입니다"
-      );
+      Alert.alert('네트워크 에러');
     }
     setLoading(false);
   }

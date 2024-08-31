@@ -6,9 +6,9 @@ export interface LoginData {
 export interface SignupData {
   email:string;
   password:string;
-  name:string;
+  realName:string;
   nickname:string;
-  phone:string;
-  birthday:string;
+  phoneNumber:string;
+  birthday:Date | null;
   gender:string;
 }

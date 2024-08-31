@@ -16,19 +16,30 @@ const Phone = () => {
 
   const submit = async () => {
     setLoading(true);
-    if(signup.signupData.name.trim() === '') {
-      Alert.alert('공백 방지','공백을 제외한 1글자 이상 입력해주세요')
+    if(signup.signupData.phoneNumber.trim() === '') {
+      Alert.alert('공백 방지','공백을 제외한 1글자 이상 입력해주세요');
+      setLoading(false);
       return;
     }
     try {
-      const res = await axios.post("https://somewheretocheckphone.com", {
-        phone: signup.signupData.phone,
-      });
-      if (res) {
+      const res = await axios.get(
+        "https://119b-175-202-245-36.ngrok-free.app/auth/phone-number",
+        {
+          params:{
+            phoneNumber: "+8210"+signup.signupData.phoneNumber.split('010')[1],
+          }
+        }
+      );
+      if (res && !res.data.data) {
         navigation.navigate("NicknameScreen");
+      }else{
+        Alert.alert(
+          "이미 사용중인 전화번호",
+          "해당 전화번호가 이미 사용중입니다"
+        );
       }
     } catch {
-      Alert.alert("이미 사용중인 전화번호", "해당 전화번호가 이미 사용중입니다");
+      Alert.alert("네트워크 에러");
     }
     setLoading(false);
   }
@@ -45,10 +56,10 @@ const Phone = () => {
               borderBottomColor: theme.textColor,
               color: theme.textColor,
             }}
-            placeholder="'-'없이 입력해주세요"
-            value={signup.signupData.phone}
+            placeholder="'-' 없이 입력해주세요"
+            value={signup.signupData.phoneNumber}
             onChangeText={(e) => {
-              signup.handleSignupData(e, "phone");
+              signup.handleSignupData(e, "phoneNumber");
             }}
           />
           <S.Filler></S.Filler>

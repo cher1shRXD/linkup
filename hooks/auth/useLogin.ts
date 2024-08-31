@@ -2,11 +2,14 @@ import axios from "axios";
 import { useState } from "react";
 import tokenStore from "../../store/auth/tokenStore";
 import { Alert } from "react-native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 const useLogin = () => {
   const [email,setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loading,setLoading] = useState<boolean>(false);
+
+  const navigation = useNavigation<NavigationProp<any>>();
 
   const setAccessToken = tokenStore(state=>state.setAccessToken);
   const setRefreshToken = tokenStore((state) => state.setRefreshToken);
@@ -21,10 +24,14 @@ const useLogin = () => {
   const submit = async () => {
     setLoading(true);
     try{
-      const res = await axios.post('https://somewheretologin.com/auth/login',{email,password});
+      const res = await axios.post(
+        "https://119b-175-202-245-36.ngrok-free.app/auth/login",
+        { email, password }
+      );
       if(res){
-        setAccessToken(res.data.accessToken);
-        setRefreshToken(res.data.refreshToken);
+        setAccessToken(res.data.data.accessToken);
+        setRefreshToken(res.data.data.refreshToken);
+        navigation.navigate('TabScreen');
       }
     }catch{
       Alert.alert('로그인 실패','이메일 또는 비밀번호를 확인해주세요');

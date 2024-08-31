@@ -12,10 +12,10 @@ export const signupDataStore = create<SignupDataStore>((set) => ({
     email: "",
     password: "",
     nickname: "",
-    name: "",
-    phone: "",
+    realName: "",
+    phoneNumber: "",
     gender: "",
-    birthday: "",
+    birthday: null,
   },
   setSignupData: (update: Partial<SignupData>) =>
     set((state) => ({
@@ -27,10 +27,10 @@ export const signupDataStore = create<SignupDataStore>((set) => ({
         email: "",
         password: "",
         nickname: "",
-        name: "",
-        phone: "",
+        realName: "",
+        phoneNumber: "",
         gender: "",
-        birthday: "",
+        birthday: null,
       },
     }),
 }));

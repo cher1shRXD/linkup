@@ -12,7 +12,6 @@ const Personal = () => {
   const { theme } = useTheme();
   const { ...signup } = useSignup();
 
-  const [date, setDate] = useState<Date | null>(null);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   const showDatePicker = () => {
@@ -25,7 +24,7 @@ const Personal = () => {
 
   const handleConfirm = (selectedDate: Date) => {
     hideDatePicker();
-    setDate(selectedDate);
+    signup.handleSignupData(selectedDate,'birthday');
   };
 
   const changeGender = (gender: string) => {
@@ -33,7 +32,7 @@ const Personal = () => {
   };
 
   const submit = () => {
-    if (!date || signup.signupData.gender === "") {
+    if (!signup.signupData.birthday || signup.signupData.gender === "") {
       Alert.alert("공백 방지", "모든 필드를 입력해주세요.");
       return;
     }
@@ -142,16 +141,25 @@ const Personal = () => {
           </S.GenderWrap>
           <S.Subtitle>생년월일을 입력해주세요</S.Subtitle>
           <TouchableOpacity onPress={showDatePicker}>
-            {date ? (
+            {signup.signupData.birthday ? (
               <S.BirthdayWrap>
                 <S.BirthdayText>
-                  {date && date.toLocaleDateString().split("/")[2] + "년 "}
+                  {signup.signupData.birthday &&
+                    signup.signupData.birthday
+                      .toLocaleDateString()
+                      .split("/")[2] + "년 "}
                 </S.BirthdayText>
                 <S.BirthdayText>
-                  {date && date.toLocaleDateString().split("/")[0] + "월 "}
+                  {signup.signupData.birthday &&
+                    signup.signupData.birthday
+                      .toLocaleDateString()
+                      .split("/")[0] + "월 "}
                 </S.BirthdayText>
                 <S.BirthdayText>
-                  {date && date.toLocaleDateString().split("/")[1] + "일 "}
+                  {signup.signupData.birthday &&
+                    signup.signupData.birthday
+                      .toLocaleDateString()
+                      .split("/")[1] + "일 "}
                 </S.BirthdayText>
               </S.BirthdayWrap>
             ) : (
@@ -167,12 +175,9 @@ const Personal = () => {
             onCancel={hideDatePicker}
           />
           <S.Filler></S.Filler>
-            <S.Button
-              activeOpacity={0.7}
-              onPress={submit}
-            >
-              <S.ButtonText style={{ color: "white" }}>완료하기</S.ButtonText>
-            </S.Button>
+          <S.Button activeOpacity={0.7} onPress={submit} disabled={signup.loading}>
+            <S.ButtonText style={{ color: "white" }}>{signup.loading ? "회원가입 중..." : "완료하기"}</S.ButtonText>
+          </S.Button>
         </S.InputWrap>
       </Pressable>
     </S.Container>

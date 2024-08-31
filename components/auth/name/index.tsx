@@ -12,7 +12,7 @@ const Name = () => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   const submit = () => {
-    if(signup.signupData.name.trim() === '') {
+    if(signup.signupData.realName.trim() === '') {
       Alert.alert('공백 방지','공백을 제외한 1글자 이상 입력해주세요')
       return;
     }
@@ -32,9 +32,9 @@ const Name = () => {
               color: theme.textColor,
             }}
             placeholder="이름을 입력해주세요"
-            value={signup.signupData.name}
+            value={signup.signupData.realName}
             onChangeText={(e) => {
-              signup.handleSignupData(e, "name");
+              signup.handleSignupData(e, "realName");
             }}
           />
           <S.Filler></S.Filler>

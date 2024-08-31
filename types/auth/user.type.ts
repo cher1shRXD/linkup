@@ -6,4 +6,6 @@ export interface User {
   phone: string;
   birthday: string;
   gender: string;
+  profileImage:string;
+  statusMessage:string;
 }

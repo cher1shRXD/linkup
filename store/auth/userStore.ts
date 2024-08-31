@@ -17,6 +17,8 @@ export const userStore = create<UserStore>((set) => ({
     phone: "",
     birthday: "",
     gender: "",
+    statusMessage: "",
+    profileImage: "",
   },
   setUser: (user) => set({ user }),
   clearUser: () =>
@@ -29,6 +31,8 @@ export const userStore = create<UserStore>((set) => ({
         phone: "",
         birthday: "",
         gender: "",
+        statusMessage: "",
+        profileImage: "",
       },
     }),
 }));

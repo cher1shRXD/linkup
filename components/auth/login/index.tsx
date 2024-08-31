@@ -11,7 +11,7 @@ const Login = () => {
 
   return (
     <S.Container>
-      <StackHeader title="뒤로가기" />
+      <StackHeader title="뒤로가기" target='AuthIntro'/>
       <Pressable style={{ flex: 1, width: "100%" }} onPress={Keyboard.dismiss}>
         <S.Title>로그인</S.Title>
         <S.InputWrap>

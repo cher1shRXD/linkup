@@ -4,7 +4,7 @@ import * as S from './style'
 import { Ionicons } from '@expo/vector-icons';
 import { ThemedText } from '../theme';
 
-const StackHeader = ({title}:{title:string}) => {
+const StackHeader = ({title,target}:{title:string,target?:string}) => {
 
   const { theme } = useTheme();
   const navigation = useNavigation<NavigationProp<any>>();
@@ -12,9 +12,14 @@ const StackHeader = ({title}:{title:string}) => {
   return (
     <S.Header>
       <S.BackWrap
-        onPress={() => {
-          navigation.goBack();
-        }}
+        onPress={
+          target ? 
+          () => {
+            navigation.navigate(target);
+          } : 
+          () => {
+            navigation.goBack();
+          }}
       >
         <Ionicons
           name="chevron-back-outline"
