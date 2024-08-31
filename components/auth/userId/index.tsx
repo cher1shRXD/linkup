@@ -15,9 +15,15 @@ const UserId = () => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   const submit = async () => {
+    const REGEX = /^[a-z0-9_]+$/;
     setLoading(true);
-    if (signup.signupData.phoneNumber.trim() === "") {
+    if (signup.signupData.linkupId.trim() === "") {
       Alert.alert("공백 방지", "공백을 제외한 1글자 이상 입력해주세요");
+      setLoading(false);
+      return;
+    }
+    if(!REGEX.test(signup.signupData.linkupId)) {
+      Alert.alert("형식 에러", "링크업 아이디는 숫자, 영문 소문자, '_'만 사용할 수 있습니다");
       setLoading(false);
       return;
     }

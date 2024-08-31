@@ -1,10 +1,10 @@
-import { Keyboard, Pressable, ScrollView } from "react-native";
+import { Keyboard, Pressable, RefreshControl, ScrollView } from "react-native";
 import StackHeader from "../../stackHeader";
 import * as S from "./style";
 import useGetMe from "../../../hooks/user/useGetMe";
 import tokenStore from "../../../store/auth/tokenStore";
 import { userStore } from "../../../store/auth/userStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import EditProfileImg from "../../editProfileImg";
 import { useTheme } from "../../../context/theme/themeContext";
 import EditNickname from "../../editNickname";
@@ -14,6 +14,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import EditPassword from "../../editPassword";
 
 const EditProfile = () => {
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const { ...me } = useGetMe();
   const ACCESS_TOKEN = tokenStore((state) => state.accessToken);
   const user = userStore((state) => state.user);
@@ -25,10 +26,18 @@ const EditProfile = () => {
     }
   }, [ACCESS_TOKEN]);
 
+  const onRefresh = () => {
+    setRefreshing(true);
+    if (ACCESS_TOKEN) {
+      me.getMe();
+    }
+    setRefreshing(false);
+  };
+
   return (
     <S.Container>
       <StackHeader title="프로필 수정" />
-      <ScrollView>
+      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
         <Pressable
           style={{ flex: 1, width: "100%" }}
           onPress={Keyboard.dismiss}

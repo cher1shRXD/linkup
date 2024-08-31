@@ -21,7 +21,7 @@ import tokenStore from "../../store/auth/tokenStore";
 import Login from "../auth/login";
 import Email from "../auth/email";
 import Password from "../auth/password";
-import Name from "../auth/nickname";
+import Nickname from "../auth/nickname";
 import UserId from "../auth/userId";
 import Phone from "../auth/phone";
 import Personal from "../auth/personal";
@@ -99,9 +99,9 @@ const AuthStackScreen = () => {
       <AuthStack.Screen name="LoginScreen" component={Login} />
       <AuthStack.Screen name="EmailScreen" component={Email} />
       <AuthStack.Screen name="PasswordScreen" component={Password} />
-      <AuthStack.Screen name="LinkupIdScreen" component={Name} />
+      <AuthStack.Screen name="NicknameScreen" component={Nickname} />
       <AuthStack.Screen name="PhoneScreen" component={Phone} />
-      <AuthStack.Screen name="NicknameScreen" component={UserId} />
+      <AuthStack.Screen name="LinkupIdScreen" component={UserId} />
       <AuthStack.Screen name="PersonalScreen" component={Personal} />
     </AuthStack.Navigator>
   );
