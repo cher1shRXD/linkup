@@ -55,8 +55,11 @@ const EditProfile = () => {
               <S.SeperLine color={theme.borderColor} />
 
               <S.SectionTitle>링크업 아이디</S.SectionTitle>
-              <S.SectionSubTitle>
+              <S.SectionSubTitle style={{ marginBottom: 0 }}>
                 링크업 아이디는 90일에 한번 변경 가능합니다
+              </S.SectionSubTitle>
+              <S.SectionSubTitle>
+                영문 소문자, 숫자, _만을 이용해 만들어 주세요
               </S.SectionSubTitle>
               <EditLinkupId user={user} />
               <S.SeperLine color={theme.borderColor} />
@@ -77,7 +80,9 @@ const EditProfile = () => {
               <S.SectionTitle>개인정보</S.SectionTitle>
               <S.SectionSubTitle>성별</S.SectionSubTitle>
               <EditGender user={user} />
-              <S.SectionSubTitle style={{marginTop:20}}>생년월일</S.SectionSubTitle>
+              <S.SectionSubTitle style={{ marginTop: 20 }}>
+                생년월일
+              </S.SectionSubTitle>
               <EditBirthday user={user} />
             </S.Main>
           </KeyboardAwareScrollView>

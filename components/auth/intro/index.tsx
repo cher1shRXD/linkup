@@ -11,7 +11,13 @@ const Intro = () => {;
 
   return (
     <S.Container>
-      <S.LogoImg source={require("../../../assets/logo_white.png")}/>
+      <S.LogoImg
+        source={
+          theme.backgroundColor === "#1b1b1b"
+            ? require("../../../assets/logo_white.png")
+            : require("../../../assets/logo_black.png")
+        }
+      />
       <S.Title>L!NKUP</S.Title>
       <S.SubTitle>빛나는 소통의 갈고리</S.SubTitle>
       <S.Filler></S.Filler>

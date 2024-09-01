@@ -43,6 +43,7 @@ export const MyStatus = styled(ThemedText)`
   font-size:12px;
   font-weight:200;
   margin-top:5px;
+  word-break:keep-all;
 `
 export const FriendsWrap = styled(ThemedBox)`
   width:100%;

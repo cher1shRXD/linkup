@@ -14,69 +14,6 @@ import useGetMe from "../../../hooks/user/useGetMe";
 import { userStore } from "../../../store/auth/userStore";
 import tokenStore from "../../../store/auth/tokenStore";
 
-const DummyFriend = [
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-  {
-    nickname: "전민오",
-    statusMessage: "나르샤하기 싫다",
-  },
-];
-
 const Friends = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { theme } = useTheme();
@@ -135,7 +72,7 @@ const Friends = () => {
           </S.MyInfo>
         </S.MyInfoWrap>
         <S.SectionTitle>친구</S.SectionTitle>
-        <S.FriendsWrap>
+        {/* <S.FriendsWrap>
           {DummyFriend.map((item, idx) => (
             <S.FriendBox
               border={theme.borderColor}
@@ -152,7 +89,7 @@ const Friends = () => {
               </S.FriendInfo>
             </S.FriendBox>
           ))}
-        </S.FriendsWrap>
+        </S.FriendsWrap> */}
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("AddFriend");
