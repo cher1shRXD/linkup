@@ -1,11 +1,11 @@
 import * as S from "./style";
-import { User } from "../../types/auth/user.type";
-import { useTheme } from "../../context/theme/themeContext";
+import { User } from "../../../types/auth/user.type";
+import { useTheme } from "../../../context/theme/themeContext";
 import { Alert, TextInput } from "react-native";
-import useGetMe from "../../hooks/user/useGetMe";
+import useGetMe from "../../../hooks/user/useGetMe";
 import { useEffect, useRef, useState } from "react";
-import useChangeLinkupId from "../../hooks/user/useChangeLinkupId";
-import instance from "../../libs/axios/instance";
+import useChangeLinkupId from "../../../hooks/user/useChangeLinkupId";
+import instance from "../../../libs/axios/instance";
 
 const EditLinkupId = ({ user }: { user: User }) => {
   const [canChange, setCanChange] = useState<boolean>(false);

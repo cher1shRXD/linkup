@@ -3,6 +3,7 @@ import { useTheme } from '../../../context/theme/themeContext';
 import { ThemedText } from '../../theme';
 import * as S from './style'
 
+
 const Intro = () => {;
   const { theme } = useTheme();
 
@@ -10,7 +11,9 @@ const Intro = () => {;
 
   return (
     <S.Container>
+      <S.LogoImg source={require("../../../assets/logo_white.png")}/>
       <S.Title>L!NKUP</S.Title>
+      <S.SubTitle>빛나는 소통의 갈고리</S.SubTitle>
       <S.Filler></S.Filler>
       <S.ButtonWrap>
         <S.Button
@@ -25,7 +28,7 @@ const Intro = () => {;
         <S.Button
           activeOpacity={0.7}
           style={{ backgroundColor: theme.boxColor }}
-          onPress={()=>{
+          onPress={() => {
             navigation.navigate("EmailScreen");
           }}
         >

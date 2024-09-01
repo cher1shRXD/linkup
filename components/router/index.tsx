@@ -122,7 +122,7 @@ const Router = () => {
 
   return (
     <MainStack.Navigator
-      screenOptions={{ headerShown: false, gestureEnabled: false }}
+      screenOptions={{ headerShown: false, gestureEnabled: true }}
     >
       <MainStack.Screen name="TabScreen" component={TabScreen} />
       <MainStack.Screen

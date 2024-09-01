@@ -1,10 +1,10 @@
 import { useRef } from "react";
-import { useTheme } from "../../context/theme/themeContext";
-import useChangeStatusMessage from "../../hooks/user/useChangeStatusMessage";
-import { User } from "../../types/auth/user.type";
+import { useTheme } from "../../../context/theme/themeContext";
+import useChangeStatusMessage from "../../../hooks/user/useChangeStatusMessage";
+import { User } from "../../../types/auth/user.type";
 import * as S from "./style";
 import { TextInput } from "react-native";
-import useGetMe from "../../hooks/user/useGetMe";
+import useGetMe from "../../../hooks/user/useGetMe";
 
 const EditStatusMessage = ({ user }: { user: User }) => {
   const { theme } = useTheme();
@@ -38,6 +38,7 @@ const EditStatusMessage = ({ user }: { user: User }) => {
       <S.Button
         isDisabled={statusMessage.statusMessage.trim().length === 0}
         onPress={changeStatusMessage}
+        disabled={statusMessage.statusMessage.trim().length === 0}
       >
         <S.ButtonText
           isDisabled={statusMessage.statusMessage.trim().length === 0}

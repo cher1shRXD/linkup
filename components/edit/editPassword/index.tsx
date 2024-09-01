@@ -1,9 +1,9 @@
-import * as S from './style'
-import useGetMe from '../../hooks/user/useGetMe';
-import { useTheme } from '../../context/theme/themeContext';
-import { useRef } from 'react';
-import { Alert, TextInput } from 'react-native';
-import useChangePassword from '../../hooks/user/useChangePassword';
+import * as S from "./style";
+import useGetMe from "../../../hooks/user/useGetMe";
+import { useTheme } from "../../../context/theme/themeContext";
+import { useRef } from "react";
+import { Alert, TextInput } from "react-native";
+import useChangePassword from "../../../hooks/user/useChangePassword";
 
 const EditPassword = () => {
   const { theme } = useTheme();
@@ -66,6 +66,6 @@ const EditPassword = () => {
       )}
     </S.Container>
   );
-}
+};
 
-export default EditPassword
+export default EditPassword;

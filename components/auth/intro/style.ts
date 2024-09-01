@@ -10,7 +10,6 @@ export const Container = styled(ThemedView)`
 export const Title = styled(ThemedText)`
   font-size:25px;
   font-weight:700;
-  margin-top:200px;
 `
 export const ButtonWrap = styled.View`
   width:100%;
@@ -34,4 +33,15 @@ export const ButtonText = styled.Text`
 `
 export const Filler = styled.View`
   flex:1;
+`
+export const LogoImg = styled.Image`
+  width:170px;
+  height:140px;
+  object-fit:contain;
+  object-position:center;
+  margin-top:100px;
+`
+export const SubTitle = styled(ThemedText)`
+  font-size:15px;
+  font-weight:200;
 `

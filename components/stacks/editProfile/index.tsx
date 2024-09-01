@@ -5,13 +5,15 @@ import useGetMe from "../../../hooks/user/useGetMe";
 import tokenStore from "../../../store/auth/tokenStore";
 import { userStore } from "../../../store/auth/userStore";
 import { useEffect, useState } from "react";
-import EditProfileImg from "../../editProfileImg";
+import EditProfileImg from "../../edit/editProfileImg";
 import { useTheme } from "../../../context/theme/themeContext";
-import EditNickname from "../../editNickname";
-import EditLinkupId from "../../editLinkupId";
-import EditStatusMessage from "../../editStatusMessage";
+import EditNickname from "../../edit/editNickname";
+import EditLinkupId from "../../edit/editLinkupId";
+import EditStatusMessage from "../../edit/editStatusMessage";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import EditPassword from "../../editPassword";
+import EditPassword from "../../edit/editPassword";
+import EditGender from "../../edit/editGender";
+import EditBirthday from "../../edit/editBirthday";
 
 const EditProfile = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
@@ -37,7 +39,11 @@ const EditProfile = () => {
   return (
     <S.Container>
       <StackHeader title="프로필 수정" />
-      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <Pressable
           style={{ flex: 1, width: "100%" }}
           onPress={Keyboard.dismiss}
@@ -56,7 +62,7 @@ const EditProfile = () => {
               <S.SeperLine color={theme.borderColor} />
 
               <S.SectionTitle>비밀번호</S.SectionTitle>
-              <EditPassword/>
+              <EditPassword />
               <S.SeperLine color={theme.borderColor} />
 
               <S.SectionTitle>프로필사진</S.SectionTitle>
@@ -65,6 +71,13 @@ const EditProfile = () => {
 
               <S.SectionTitle>상태메시지</S.SectionTitle>
               <EditStatusMessage user={user} />
+              <S.SeperLine color={theme.borderColor} />
+
+              <S.SectionTitle>개인정보</S.SectionTitle>
+              <S.SectionSubTitle>성별</S.SectionSubTitle>
+              <EditGender user={user} />
+              <S.SectionSubTitle style={{marginTop:20}}>생년월일</S.SectionSubTitle>
+              <EditBirthday user={user} />
             </S.Main>
           </KeyboardAwareScrollView>
         </Pressable>

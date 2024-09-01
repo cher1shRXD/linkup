@@ -1,14 +1,14 @@
 import { Alert, Platform, Text } from "react-native";
 import * as S from "./style";
-import { ThemedText } from "../theme";
-import Skeleton from "../skeleton";
-import useGetMe from "../../hooks/user/useGetMe";
-import { useTheme } from "../../context/theme/themeContext";
-import useUpload from "../../hooks/upload/useUpload";
-import useChangeImg from "../../hooks/user/useChangeImg";
-import useDeleteImg from "../../hooks/user/useDeleteImg";
+import { ThemedText } from "../../theme";
+import Skeleton from "../../skeleton";
+import useGetMe from "../../../hooks/user/useGetMe";
+import { useTheme } from "../../../context/theme/themeContext";
+import useUpload from "../../../hooks/upload/useUpload";
+import useChangeImg from "../../../hooks/user/useChangeImg";
+import useDeleteImg from "../../../hooks/user/useDeleteImg";
 import * as ImagePicker from "expo-image-picker";
-import { User } from "../../types/auth/user.type";
+import { User } from "../../../types/auth/user.type";
 
 const EditProfileImg = ({ user }: { user: User }) => {
   const { theme } = useTheme();
