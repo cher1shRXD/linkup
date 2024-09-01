@@ -70,6 +70,7 @@ const EditProfile = () => {
               <S.SeperLine color={theme.borderColor} />
 
               <S.SectionTitle>상태메시지</S.SectionTitle>
+              <S.SectionSubTitle>50자 이내로 입력해주세요</S.SectionSubTitle>
               <EditStatusMessage user={user} />
               <S.SeperLine color={theme.borderColor} />
 

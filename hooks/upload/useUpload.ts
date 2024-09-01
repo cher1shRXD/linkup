@@ -1,6 +1,6 @@
 import FormData from "form-data";
-import instance from "../../libs/axios/instance";
 import { useState } from "react";
+import axios from "axios";
 
 const useUpload = () => {
   const [loading,setLoading] = useState<boolean>(false);
@@ -11,17 +11,26 @@ const useUpload = () => {
     const match = /\.(\w+)$/.exec(filename ?? "");
     const type = match ? `image/${match[1]}` : `image`;
     const formData = new FormData();
-    formData.append("file", { uri, name: filename, type });
+    formData.append("files", { uri, name: filename, type });
     
-    const res = await instance.post('/upload',formData,{headers:{"Content-Type":'multipart/form-data'}});
+    const res = await axios.post(
+      "https://eb1f-175-202-245-36.ngrok-free.app/files/upload",
+      formData,
+      {
+        headers : {
+          "Content-Type":'multipart/form-data'
+        }
+      }
+    );
     if(res){
+      console.log(res.data[0]);
       setLoading(true);
     }
-    return res.data.data.url;
+    return res.data[0];
   }
   return {
     upload,
-    loading
+    loading,
   }
 }
 

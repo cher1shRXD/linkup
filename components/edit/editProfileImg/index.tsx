@@ -9,6 +9,7 @@ import useChangeImg from "../../../hooks/user/useChangeImg";
 import useDeleteImg from "../../../hooks/user/useDeleteImg";
 import * as ImagePicker from "expo-image-picker";
 import { User } from "../../../types/auth/user.type";
+import { useEffect } from "react";
 
 const EditProfileImg = ({ user }: { user: User }) => {
   const { theme } = useTheme();
@@ -63,7 +64,7 @@ const EditProfileImg = ({ user }: { user: User }) => {
   };
 
   return (
-    <S.ProfileImgWrap>
+    <S.Container>
       {me.loading ? (
         <Skeleton width={100} height={100} style={{ borderRadius: 10 }} />
       ) : (
@@ -83,7 +84,7 @@ const EditProfileImg = ({ user }: { user: User }) => {
           <ThemedText>삭제</ThemedText>
         </S.ProfileImgBtn>
       </S.ProfileImgBtnWrap>
-    </S.ProfileImgWrap>
+    </S.Container>
   );
 };
 

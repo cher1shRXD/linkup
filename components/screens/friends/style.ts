@@ -28,7 +28,7 @@ export const MyProfilePicture = styled.Image`
   border-radius: 5px;
   object-fit: cover;
   object-position: center;
-  background-color: #ccc;
+  background-color: #e0e0e0;
 `;
 export const MyInfo = styled.View`
   flex:1;
