@@ -29,14 +29,14 @@ const UserId = () => {
     }
     try {
       const res = await axios.get(
-        "https://eb1f-175-202-245-36.ngrok-free.app/auth/linkup-id",
+        "https://eb1f-175-202-245-36.ngrok-free.app/auth/check",
         {
           params: {
             linkupId: signup.signupData.linkupId
           },
         }
       );
-      if (res && !res.data.data) {
+      if (res && !res.data.data.linkupId) {
         navigation.navigate("PhoneScreen");
       } else {
         Alert.alert(

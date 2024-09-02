@@ -7,21 +7,23 @@ export const Container = styled(ThemedView)`
   align-items: center;
 `;
 
-export const Banner = styled.View`
+export const Banner = styled.View<{bg:string}>`
   width: 100%;
   flex: 1;
-  background-color: #ccc;
+  background-image:url(${props=>props.bg}) no-repeat center;
   justify-content: flex-end;
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
 `;
 
-export const ProfilePicture = styled.View`
-  width: 40%;
-  aspect-ratio: 1/1;
+export const ProfilePicture = styled.Image`
+  width:100px;
+  height:100px;
   background-color: green;
-  border-radius: 30px;
+  border-radius: 10px;
+  object-fit:cover;
+  object-position:center;
 `;
 
 export const InfoWrap = styled.View`
@@ -38,6 +40,7 @@ export const GoChat = styled.TouchableOpacity`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin-top:20px;
 `;
 
 export const Name = styled(ThemedText)`

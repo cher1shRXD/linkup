@@ -1,13 +1,20 @@
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../../context/theme/themeContext';
 import { ThemedText } from '../../theme';
 import * as S from './style'
+import { signupDataStore } from '../../../store/signup/signupDataStore';
 
 
 const Intro = () => {;
   const { theme } = useTheme();
 
   const navigation = useNavigation<NavigationProp<any>>();
+
+  const clearSignupData = signupDataStore(state=>state.clearSignupData);
+
+  useFocusEffect(()=>{
+    clearSignupData();
+  })
 
   return (
     <S.Container>

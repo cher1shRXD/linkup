@@ -23,7 +23,7 @@ const Phone = () => {
     }
     try {
       const res = await axios.get(
-        "https://eb1f-175-202-245-36.ngrok-free.app/auth/phone-number",
+        "https://eb1f-175-202-245-36.ngrok-free.app/auth/check",
         {
           params: {
             phoneNumber:
@@ -31,7 +31,7 @@ const Phone = () => {
           },
         }
       );
-      if (res && !res.data.data) {
+      if (res && !res.data.data.phoneNumber) {
         navigation.navigate("NicknameScreen");
       }else{
         Alert.alert(

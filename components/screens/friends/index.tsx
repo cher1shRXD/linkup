@@ -13,11 +13,13 @@ import Skeleton from "../../skeleton";
 import useGetMe from "../../../hooks/user/useGetMe";
 import { userStore } from "../../../store/auth/userStore";
 import tokenStore from "../../../store/auth/tokenStore";
+import useGetFriends from "../../../hooks/friends/useGetFriends";
 
 const Friends = () => {
   const [refreshing, setRefreshing] = useState(false);
   const { theme } = useTheme();
   const { ...me } = useGetMe();
+  const { ...friends } = useGetFriends();
 
   const user = userStore((state) => state.user);
   const ACCESS_TOKEN = tokenStore((state) => state.accessToken);
@@ -27,6 +29,7 @@ const Friends = () => {
   useEffect(() => {
     if (ACCESS_TOKEN) {
       me.getMe();
+      friends.getFriends();
     }
   }, [ACCESS_TOKEN]);
 
@@ -72,24 +75,87 @@ const Friends = () => {
           </S.MyInfo>
         </S.MyInfoWrap>
         <S.SectionTitle>친구</S.SectionTitle>
-        {/* <S.FriendsWrap>
-          {DummyFriend.map((item, idx) => (
+        <S.FriendsWrap>
+          {friends.loading ? (
             <S.FriendBox
               border={theme.borderColor}
-              key={idx}
-              isLast={idx === DummyFriend.length - 1}
+              key={0}
+              isLast={false}
               onPress={() => {
                 navigation.navigate("FriendDetail"), { id: 1 };
               }}
             >
-              <S.FriendPicture></S.FriendPicture>
+              <Skeleton width={50} height={50} style={{ borderRadius: 5 }} />
+              <S.FriendInfo>
+                <Skeleton width={100} height={20} style={{ borderRadius: 5 }} />
+                <Skeleton
+                  width={90}
+                  height={15}
+                  style={{ borderRadius: 5, marginTop: 10 }}
+                />
+              </S.FriendInfo>
+            </S.FriendBox>
+          ) : (
+            null
+          )
+          }
+          {friends.loading && (
+            <S.FriendBox
+              border={theme.borderColor}
+              key={1}
+              isLast={false}
+              onPress={() => {
+                navigation.navigate("FriendDetail"), { id: 1 };
+              }}
+            >
+              <Skeleton width={50} height={50} style={{ borderRadius: 5 }} />
+              <S.FriendInfo>
+                <Skeleton width={100} height={20} style={{ borderRadius: 5 }} />
+                <Skeleton
+                  width={90}
+                  height={15}
+                  style={{ borderRadius: 5, marginTop: 10 }}
+                />
+              </S.FriendInfo>
+            </S.FriendBox>
+          )}
+          {friends.loading && (
+            <S.FriendBox
+              border={theme.borderColor}
+              key={2}
+              isLast={false}
+              onPress={() => {
+                navigation.navigate("FriendDetail"), { id: 1 };
+              }}
+            >
+              <Skeleton width={50} height={50} style={{ borderRadius: 5 }} />
+              <S.FriendInfo>
+                <Skeleton width={100} height={20} style={{ borderRadius: 5 }} />
+                <Skeleton
+                  width={90}
+                  height={15}
+                  style={{ borderRadius: 5, marginTop: 10 }}
+                />
+              </S.FriendInfo>
+            </S.FriendBox>
+          )}
+          {friends.friends.map((item, idx) => (
+            <S.FriendBox
+              border={theme.borderColor}
+              key={idx}
+              isLast={idx === friends.friends.length - 1}
+              onPress={() => {
+                navigation.navigate("FriendDetail",{linkupId:item.linkupId})
+              }}
+            >
+              <S.FriendPicture src={item.profileImage}/>
               <S.FriendInfo>
                 <S.FriendName>{item.nickname}</S.FriendName>
                 <S.FriendStatus>{item.statusMessage}</S.FriendStatus>
               </S.FriendInfo>
             </S.FriendBox>
           ))}
-        </S.FriendsWrap> */}
+        </S.FriendsWrap>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("AddFriend");

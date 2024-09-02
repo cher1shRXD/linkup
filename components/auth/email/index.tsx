@@ -31,10 +31,10 @@ const Email = () => {
     }
     try{
       const res = await axios.get(
-        "https://eb1f-175-202-245-36.ngrok-free.app/auth/email",
+        "https://eb1f-175-202-245-36.ngrok-free.app/auth/check",
         { params: { email: signup.signupData.email } }
       );
-      if(res && !res.data.data){
+      if(res && !res.data.data.email){
         navigation.navigate("PasswordScreen");
       }else{
         Alert.alert("이미 사용중인 이메일", "해당 이메일이 이미 사용중입니다");

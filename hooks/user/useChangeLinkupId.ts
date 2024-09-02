@@ -21,14 +21,23 @@ const useChangeLinkupId = () => {
       return;
     }
     setLoading(true);
-    const res = await instance.patch("/users/me", {
-      linkupId,
-    });
-    if (res) {
-      setLinkupId("");
+    const checkRes = await instance.get('/auth/check',{params:{linkupId}});
+    if(checkRes && !checkRes.data.data.linkupId) {
+      const res = await instance.patch("/users/me", {
+        linkupId,
+      });
+      if (res) {
+        setLinkupId("");
+        setLoading(false);
+      }
+      return res.data.data;
+    }else{
+      Alert.alert(
+        "이미 사용중인 링크업 아이디",
+        "해당 링크업 아이디가 이미 사용중입니다"
+      );
       setLoading(false);
-    }
-    return res.data.data;
+    } 
   };
 
   return {
