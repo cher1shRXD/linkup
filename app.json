@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "chatapp",
-    "slug": "chatapp",
+    "name": "linkup",
+    "slug": "linkup",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
