@@ -20,6 +20,7 @@ const Friends = () => {
   const { theme } = useTheme();
   const { ...me } = useGetMe();
   const { ...friends } = useGetFriends();
+  const [imageLoading, setImageLoading] = useState<boolean>(false);
 
   const user = userStore((state) => state.user);
   const ACCESS_TOKEN = tokenStore((state) => state.accessToken);
@@ -37,6 +38,7 @@ const Friends = () => {
     setRefreshing(true);
     if (ACCESS_TOKEN) {
       me.getMe();
+      friends.getFriends();
     }
     setRefreshing(false);
   };
@@ -52,11 +54,20 @@ const Friends = () => {
       >
         <S.SectionTitle>내 프로필</S.SectionTitle>
         <S.MyInfoWrap>
-          {me.loading ? (
+          {me.loading && (
             <Skeleton width={70} height={70} style={{ borderRadius: 5 }} />
-          ) : (
-            <S.MyProfilePicture src={user.profileImage} />
           )}
+          <S.MyProfilePicture
+            src={user.profileImage}
+            onLoadStart={() => {
+              setImageLoading(true);
+            }}
+            onLoadEnd={() => {
+              console.log('로딩끝');
+              setImageLoading(false);
+            }}
+            style={me.loading || imageLoading ? {height:0,width:0}:{height:70,width:70}}
+          />
           <S.MyInfo>
             {me.loading ? (
               <Skeleton width={100} height={20} style={{ borderRadius: 5 }} />
@@ -95,10 +106,7 @@ const Friends = () => {
                 />
               </S.FriendInfo>
             </S.FriendBox>
-          ) : (
-            null
-          )
-          }
+          ) : null}
           {friends.loading && (
             <S.FriendBox
               border={theme.borderColor}
@@ -139,22 +147,23 @@ const Friends = () => {
               </S.FriendInfo>
             </S.FriendBox>
           )}
-          {!friends.loading && friends.friends.map((item, idx) => (
-            <S.FriendBox
-              border={theme.borderColor}
-              key={idx}
-              isLast={idx === friends.friends.length - 1}
-              onPress={() => {
-                navigation.navigate("FriendDetail",{user:item})
-              }}
-            >
-              <S.FriendPicture src={item.profileImage}/>
-              <S.FriendInfo>
-                <S.FriendName>{item.nickname}</S.FriendName>
-                <S.FriendStatus>{item.statusMessage}</S.FriendStatus>
-              </S.FriendInfo>
-            </S.FriendBox>
-          ))}
+          {!friends.loading &&
+            friends.friends.map((item, idx) => (
+              <S.FriendBox
+                border={theme.borderColor}
+                key={idx}
+                isLast={idx === friends.friends.length - 1}
+                onPress={() => {
+                  navigation.navigate("FriendDetail", { user: item });
+                }}
+              >
+                <S.FriendPicture src={item.profileImage} />
+                <S.FriendInfo>
+                  <S.FriendName>{item.nickname}</S.FriendName>
+                  <S.FriendStatus>{item.statusMessage}</S.FriendStatus>
+                </S.FriendInfo>
+              </S.FriendBox>
+            ))}
         </S.FriendsWrap>
         <TouchableOpacity
           onPress={() => {

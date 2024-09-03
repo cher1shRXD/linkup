@@ -9,6 +9,7 @@ import useChangeImg from "../../../hooks/user/useChangeImg";
 import useDeleteImg from "../../../hooks/user/useDeleteImg";
 import * as ImagePicker from "expo-image-picker";
 import { User } from "../../../types/auth/user.type";
+import { useState } from "react";
 
 const EditProfileImg = ({ user }: { user: User }) => {
   const { theme } = useTheme();
@@ -16,6 +17,7 @@ const EditProfileImg = ({ user }: { user: User }) => {
   const { ...upload } = useUpload();
   const { ...changeImg } = useChangeImg();
   const { ...deleteImg } = useDeleteImg();
+  const [imageLoading, setImageLoading] = useState<boolean>(false);
 
   const requestPermission = async () => {
     if (Platform.OS !== "web") {
@@ -64,11 +66,25 @@ const EditProfileImg = ({ user }: { user: User }) => {
 
   return (
     <S.Container>
-      {upload.loading || me.loading ? (
-        <Skeleton width={100} height={100} style={{ borderRadius: 10 }} />
-      ) : (
-        <S.ProfileImg src={user.profileImage} />
-      )}
+      {upload.loading ||
+        me.loading ||
+        (imageLoading && (
+          <Skeleton width={100} height={100} style={{ borderRadius: 10 }} />
+        ))}
+      <S.ProfileImg
+        src={user.profileImage}
+        onLoadStart={() => {
+          setImageLoading(true);
+        }}
+        onLoadEnd={() => {
+          setImageLoading(false);
+        }}
+        style={
+          me.loading || imageLoading
+            ? { height: 0, width: 0 }
+            : { height: 100, width: 100 }
+        }
+      />
       <S.ProfileImgBtnWrap>
         <S.ProfileImgBtn
           style={{ backgroundColor: "#1e90ff" }}
