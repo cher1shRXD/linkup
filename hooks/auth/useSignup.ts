@@ -16,15 +16,6 @@ const useSignup = () => {
     setSignupData({ [fieldName]: e });
   };
 
-  const formatDate = (date:Date|null) => {
-    if(date){
-      let year = date.getFullYear();
-      let month = (date.getMonth() + 1).toString().padStart(2, "0");
-      let day = date.getDate().toString().padStart(2, "0");
-
-      return `${year}-${month}-${day}`;
-    }
-  }
 
   const submit = async () => {
     setLoading(true);
@@ -34,7 +25,6 @@ const useSignup = () => {
         {
           ...signupData,
           phoneNumber: "+8210" + signupData.phoneNumber.split("010")[1],
-          birthday: formatDate(signupData.birthday),
         }
       );
       if (res) {

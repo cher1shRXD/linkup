@@ -34,6 +34,7 @@ const Friends = () => {
     }
   }, [ACCESS_TOKEN]);
 
+
   const onRefresh = () => {
     setRefreshing(true);
     if (ACCESS_TOKEN) {
@@ -63,7 +64,6 @@ const Friends = () => {
               setImageLoading(true);
             }}
             onLoadEnd={() => {
-              console.log('로딩끝');
               setImageLoading(false);
             }}
             style={(me.loading || imageLoading) ? {height:0,width:0}:{height:70,width:70}}

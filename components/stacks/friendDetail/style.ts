@@ -32,6 +32,7 @@ export const InfoWrap = styled.View`
   align-items: center;
   padding: 15px;
   box-sizing: border-box;
+  margin-bottom:50px;
 `;
 export const GoChat = styled.TouchableOpacity`
   width: 80px;

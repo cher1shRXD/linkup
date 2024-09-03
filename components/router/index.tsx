@@ -34,7 +34,6 @@ const FriendStackScreen = () => {
     <FriendStack.Navigator screenOptions={{ headerShown: false }}>
       <FriendStack.Screen name="Friends" component={Friends} />
       <FriendStack.Screen name="AddFriend" component={AddFriend} />
-      <FriendStack.Screen name="FriendDetail" component={FriendDetail} />
     </FriendStack.Navigator>
   );
 };
@@ -131,6 +130,7 @@ const Router = () => {
         options={{ presentation: "transparentModal" }}
       />
       <MainStack.Screen name="NotiScreen" component={Notification} />
+      <MainStack.Screen name="FriendDetail" component={FriendDetail} />
     </MainStack.Navigator>
   );
 };

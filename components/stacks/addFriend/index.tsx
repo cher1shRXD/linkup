@@ -54,7 +54,7 @@ const AddFriend = () => {
                   ) : (
                     <>
                       {
-                        search.result.isFriendRequestSent ? (
+                        (search.result.isFriendRequestSent || addUser.requestTmp) ? (
                           <S.SentBtn>
                             <S.SentBtnText>요청됨</S.SentBtnText>
                           </S.SentBtn>
@@ -62,7 +62,6 @@ const AddFriend = () => {
                           <S.AddBtn
                             onPress={() => {
                               addUser.addReq(search.result.linkupId);
-                              search.searchUser();
                             }}
                             disabled={addUser.loading}
                           >

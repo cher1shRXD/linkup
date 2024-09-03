@@ -13,7 +13,7 @@ const EditBirthday = ({user}:{user:User}) => {
   const { ...birthday } = useChangeBirthday();
 
   useEffect(()=>{
-    birthday.handleBirthday(new Date(user.birthday));
+    birthday.handleBirthday(user.birthday);
   },[]);
 
   const showDatePicker = () => {
@@ -24,17 +24,6 @@ const EditBirthday = ({user}:{user:User}) => {
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (selectedDate: Date) => {
-    hideDatePicker();
-    birthday.handleBirthday(selectedDate);
-  };
-
-  const submit = async () => {
-    const res = await birthday.submit();
-    if (res) {
-      me.getMe();
-    }
-  };
 
   const formatDate = (date: Date | null) => {
     if (date) {
@@ -46,21 +35,38 @@ const EditBirthday = ({user}:{user:User}) => {
     }
   };
 
+  const handleConfirm = (selectedDate: Date) => {
+    hideDatePicker();
+    const date = formatDate(selectedDate);
+    if(date){
+      birthday.handleBirthday(date);
+    }
+  };
+
+  const submit = async () => {
+    const res = await birthday.submit();
+    if (res) {
+      me.getMe();
+    }
+  };
+
+  
+
   return (
     <S.Container>
       <TouchableOpacity onPress={showDatePicker} style={{ width: "100%" }}>
         <S.BirthdayWrap>
           <S.BirthdayText>
             {birthday.newBirthday &&
-              birthday.newBirthday.toLocaleDateString().split("/")[2] + "년 "}
+              birthday.newBirthday.split("-")[0] + "년 "}
           </S.BirthdayText>
           <S.BirthdayText>
             {birthday.newBirthday &&
-              birthday.newBirthday.toLocaleDateString().split("/")[0] + "월 "}
+              birthday.newBirthday.split("-")[1] + "월 "}
           </S.BirthdayText>
           <S.BirthdayText>
             {birthday.newBirthday &&
-              birthday.newBirthday.toLocaleDateString().split("/")[1] + "일 "}
+              birthday.newBirthday.split("-")[2] + "일 "}
           </S.BirthdayText>
         </S.BirthdayWrap>
       </TouchableOpacity>
@@ -71,12 +77,12 @@ const EditBirthday = ({user}:{user:User}) => {
         onCancel={hideDatePicker}
       />
       <S.Button
-        isDisabled={formatDate(birthday.newBirthday) === user.birthday}
+        isDisabled={birthday.newBirthday === user.birthday}
         onPress={submit}
-        disabled={formatDate(birthday.newBirthday) === user.birthday}
+        disabled={birthday.newBirthday === user.birthday}
       >
         <S.ButtonText
-          isDisabled={formatDate(birthday.newBirthday) === user.birthday}
+          isDisabled={birthday.newBirthday === user.birthday}
         >
           {birthday.loading ? "변경 중..." : "변경"}
         </S.ButtonText>

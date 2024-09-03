@@ -22,9 +22,22 @@ const Personal = () => {
     setDatePickerVisibility(false);
   };
 
+  const formatDate = (date: Date | null) => {
+    if (date) {
+      let year = date.getFullYear();
+      let month = (date.getMonth() + 1).toString().padStart(2, "0");
+      let day = date.getDate().toString().padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    }
+  };
+
   const handleConfirm = (selectedDate: Date) => {
     hideDatePicker();
-    signup.handleSignupData(selectedDate,'birthday');
+    const date = formatDate(selectedDate);
+    if(date){
+      signup.handleSignupData(date, "birthday");
+    }
   };
 
   const changeGender = (gender: string) => {
@@ -146,20 +159,17 @@ const Personal = () => {
                 <S.BirthdayText>
                   {signup.signupData.birthday &&
                     signup.signupData.birthday
-                      .toLocaleDateString()
-                      .split("/")[2] + "년 "}
+                      .split("-")[0] + "년 "}
                 </S.BirthdayText>
                 <S.BirthdayText>
                   {signup.signupData.birthday &&
                     signup.signupData.birthday
-                      .toLocaleDateString()
-                      .split("/")[0] + "월 "}
+                      .split("-")[1] + "월 "}
                 </S.BirthdayText>
                 <S.BirthdayText>
                   {signup.signupData.birthday &&
                     signup.signupData.birthday
-                      .toLocaleDateString()
-                      .split("/")[1] + "일 "}
+                      .split("-")[2] + "일 "}
                 </S.BirthdayText>
               </S.BirthdayWrap>
             ) : (

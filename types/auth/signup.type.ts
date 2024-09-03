@@ -4,6 +4,6 @@ export interface SignupData {
   linkupId:string;
   nickname:string;
   phoneNumber:string;
-  birthday:Date | null;
+  birthday:string;
   gender:string;
 }
