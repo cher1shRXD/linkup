@@ -1,11 +1,12 @@
-import { Alert, Keyboard, Pressable } from 'react-native';
-import { useTheme } from '../../../context/theme/themeContext';
-import StackHeader from '../../stackHeader'
-import * as S from './style'
-import useSignup from '../../../hooks/auth/useSignup';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-import axios from 'axios';
+import { Alert, Keyboard, Pressable } from "react-native";
+import { useTheme } from "../../../context/theme/themeContext";
+import StackHeader from "../../stackHeader";
+import * as S from "./style";
+import useSignup from "../../../hooks/auth/useSignup";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import axios from "axios";
+import { API_URL } from "@env";
 
 const Email = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,26 +25,28 @@ const Email = () => {
       setLoading(false);
       return;
     }
-    if(!REGEX.test(signup.signupData.email)) {
-      Alert.alert("유효하지 않은 이메일", "올바른 이메일 형식으로 입력해주세요");
+    if (!REGEX.test(signup.signupData.email)) {
+      Alert.alert(
+        "유효하지 않은 이메일",
+        "올바른 이메일 형식으로 입력해주세요"
+      );
       setLoading(false);
       return;
     }
-    try{
-      const res = await axios.get(
-        "https://3d74-221-168-22-204.ngrok-free.app/auth/check",
-        { params: { email: signup.signupData.email } }
-      );
-      if(res && !res.data.data.email){
+    try {
+      const res = await axios.get(`${API_URL}/auth/check`, {
+        params: { email: signup.signupData.email },
+      });
+      if (res && !res.data.data.email) {
         navigation.navigate("PasswordScreen");
-      }else{
+      } else {
         Alert.alert("이미 사용중인 이메일", "해당 이메일이 이미 사용중입니다");
       }
-    }catch{
-      Alert.alert('네트워크 에러');
+    } catch {
+      Alert.alert("네트워크 에러");
     }
     setLoading(false);
-  }
+  };
 
   return (
     <S.Container>
@@ -59,7 +62,9 @@ const Email = () => {
             }}
             placeholder="이메일을 입력해주세요"
             value={signup.signupData.email}
-            onChangeText={(e)=>{signup.handleSignupData(e,'email')}}
+            onChangeText={(e) => {
+              signup.handleSignupData(e, "email");
+            }}
           />
           <S.Filler></S.Filler>
           <S.Button activeOpacity={0.7} onPress={submit} disabled={loading}>
@@ -69,6 +74,6 @@ const Email = () => {
       </Pressable>
     </S.Container>
   );
-}
+};
 
-export default Email
+export default Email;

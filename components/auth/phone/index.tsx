@@ -1,11 +1,12 @@
-import { Alert, Keyboard, Pressable } from 'react-native';
-import { useTheme } from '../../../context/theme/themeContext';
-import StackHeader from '../../stackHeader'
-import * as S from './style'
-import useSignup from '../../../hooks/auth/useSignup';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import axios from 'axios';
-import { useState } from 'react';
+import { Alert, Keyboard, Pressable } from "react-native";
+import { useTheme } from "../../../context/theme/themeContext";
+import StackHeader from "../../stackHeader";
+import * as S from "./style";
+import useSignup from "../../../hooks/auth/useSignup";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import axios from "axios";
+import { useState } from "react";
+import { API_URL } from "@env";
 
 const Phone = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -16,24 +17,20 @@ const Phone = () => {
 
   const submit = async () => {
     setLoading(true);
-    if(signup.signupData.phoneNumber.trim() === '') {
-      Alert.alert('공백 방지','공백을 제외한 1글자 이상 입력해주세요');
+    if (signup.signupData.phoneNumber.trim() === "") {
+      Alert.alert("공백 방지", "공백을 제외한 1글자 이상 입력해주세요");
       setLoading(false);
       return;
     }
     try {
-      const res = await axios.get(
-        "https://3d74-221-168-22-204.ngrok-free.app/auth/check",
-        {
-          params: {
-            phoneNumber:
-              "+8210" + signup.signupData.phoneNumber.split("010")[1],
-          },
-        }
-      );
+      const res = await axios.get(`${API_URL}/auth/check`, {
+        params: {
+          phoneNumber: "+8210" + signup.signupData.phoneNumber.split("010")[1],
+        },
+      });
       if (res && !res.data.data.phoneNumber) {
         navigation.navigate("NicknameScreen");
-      }else{
+      } else {
         Alert.alert(
           "이미 사용중인 전화번호",
           "해당 전화번호가 이미 사용중입니다"
@@ -43,7 +40,7 @@ const Phone = () => {
       Alert.alert("네트워크 에러");
     }
     setLoading(false);
-  }
+  };
 
   return (
     <S.Container>
@@ -71,6 +68,6 @@ const Phone = () => {
       </Pressable>
     </S.Container>
   );
-}
+};
 
-export default Phone
+export default Phone;

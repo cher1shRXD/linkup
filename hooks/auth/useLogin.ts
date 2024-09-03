@@ -1,3 +1,4 @@
+import { API_URL } from "@env"
 import axios from "axios";
 import { useState } from "react";
 import tokenStore from "../../store/auth/tokenStore";
@@ -25,7 +26,7 @@ const useLogin = () => {
     setLoading(true);
     try{
       const res = await axios.post(
-        "https://3d74-221-168-22-204.ngrok-free.app/auth/login",
+        `${API_URL}/auth/login`,
         { email, password }
       );
       if(res){

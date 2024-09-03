@@ -2,13 +2,14 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import tokenStore from "../../store/auth/tokenStore";
 import { Alert } from "react-native";
 import { userStore } from "../../store/auth/userStore";
+import { API_URL } from "@env";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
 const instance = axios.create({
-  baseURL: "https://3d74-221-168-22-204.ngrok-free.app",
+  baseURL: API_URL,
   headers: {
     Accept: "*/*",
   },
@@ -54,7 +55,7 @@ instance.interceptors.response.use(
       originalRequest._retry = true;
       if (refreshToken) {
         axios
-          .post(`https://3d74-221-168-22-204.ngrok-free.app/auth/reissue`, {
+          .post(`${API_URL}/auth/reissue`, {
             refreshToken,
           })
           .then((response) => {

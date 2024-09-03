@@ -1,6 +1,7 @@
 import FormData from "form-data";
 import { useState } from "react";
 import axios from "axios";
+import { API_URL } from "@env";
 
 const useUpload = () => {
   const [loading,setLoading] = useState<boolean>(false);
@@ -14,7 +15,7 @@ const useUpload = () => {
     formData.append("files", { uri, name: filename, type });
     
     const res = await axios.post(
-      "https://3d74-221-168-22-204.ngrok-free.app/files/upload",
+      `${API_URL}/files/upload`,
       formData,
       {
         headers: {

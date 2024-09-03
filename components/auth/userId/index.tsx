@@ -1,11 +1,12 @@
-import { Alert, Keyboard, Pressable } from 'react-native';
-import { useTheme } from '../../../context/theme/themeContext';
-import StackHeader from '../../stackHeader'
-import * as S from './style'
-import useSignup from '../../../hooks/auth/useSignup';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-import axios from 'axios';
+import { Alert, Keyboard, Pressable } from "react-native";
+import { useTheme } from "../../../context/theme/themeContext";
+import StackHeader from "../../stackHeader";
+import * as S from "./style";
+import useSignup from "../../../hooks/auth/useSignup";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import axios from "axios";
+import { API_URL } from "@env";
 
 const UserId = () => {
   const [loading, setLoading] = useState<boolean>();
@@ -22,20 +23,20 @@ const UserId = () => {
       setLoading(false);
       return;
     }
-    if(!REGEX.test(signup.signupData.linkupId)) {
-      Alert.alert("형식 에러", "링크업 아이디는 숫자, 영문 소문자, '_'만 사용할 수 있습니다");
+    if (!REGEX.test(signup.signupData.linkupId)) {
+      Alert.alert(
+        "형식 에러",
+        "링크업 아이디는 숫자, 영문 소문자, '_'만 사용할 수 있습니다"
+      );
       setLoading(false);
       return;
     }
     try {
-      const res = await axios.get(
-        "https://3d74-221-168-22-204.ngrok-free.app/auth/check",
-        {
-          params: {
-            linkupId: signup.signupData.linkupId,
-          },
-        }
-      );
+      const res = await axios.get(`${API_URL}/auth/check`, {
+        params: {
+          linkupId: signup.signupData.linkupId,
+        },
+      });
       if (res && !res.data.data.linkupId) {
         navigation.navigate("PhoneScreen");
       } else {
@@ -76,6 +77,6 @@ const UserId = () => {
       </Pressable>
     </S.Container>
   );
-}
+};
 
-export default UserId
+export default UserId;

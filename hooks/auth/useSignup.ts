@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { signupDataStore } from "../../store/signup/signupDataStore";
+import { API_URL } from "@env";
 
 const useSignup = () => {
   const signupData = signupDataStore(state=>state.signupData);
@@ -21,7 +22,7 @@ const useSignup = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        "https://3d74-221-168-22-204.ngrok-free.app/auth/signup",
+        `${API_URL}/auth/signup`,
         {
           ...signupData,
           phoneNumber: "+8210" + signupData.phoneNumber.split("010")[1],
