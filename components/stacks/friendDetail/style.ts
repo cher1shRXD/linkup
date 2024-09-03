@@ -20,7 +20,6 @@ export const Banner = styled.View<{bg:string}>`
 export const ProfilePicture = styled.Image`
   width:100px;
   height:100px;
-  background-color: green;
   border-radius: 10px;
   object-fit:cover;
   object-position:center;

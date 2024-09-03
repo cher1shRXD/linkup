@@ -19,6 +19,7 @@ export const HeaderText = styled(ThemedText)`
   font-weight:700;
 `
 export const LogoImg = styled.Image`
-  width:35px;
+  width:25px;
   height:25px;
+  margin-right:5px;
 `

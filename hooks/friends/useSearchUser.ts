@@ -7,6 +7,7 @@ interface SearchResult {
   profileImage: string;
   linkupId: string;
   isFriend: boolean;
+  isFriendRequestSent: boolean;
 }
 
 const useSearchUser = () => {
@@ -16,6 +17,7 @@ const useSearchUser = () => {
     isFriend: false,
     linkupId: "",
     profileImage: "",
+    isFriendRequestSent:false
   });
   const [searchText, setSearchText] = useState<string>("");
   const [isSearched, setIsSearched] = useState<boolean>(false);
@@ -37,6 +39,7 @@ const useSearchUser = () => {
         profileImage: "",
         linkupId: "",
         isFriend: false,
+        isFriendRequestSent: false,
       });
     }
   };

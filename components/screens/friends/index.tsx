@@ -54,7 +54,7 @@ const Friends = () => {
       >
         <S.SectionTitle>내 프로필</S.SectionTitle>
         <S.MyInfoWrap>
-          {me.loading && (
+          {(me.loading || imageLoading) && (
             <Skeleton width={70} height={70} style={{ borderRadius: 5 }} />
           )}
           <S.MyProfilePicture
@@ -66,7 +66,7 @@ const Friends = () => {
               console.log('로딩끝');
               setImageLoading(false);
             }}
-            style={me.loading || imageLoading ? {height:0,width:0}:{height:70,width:70}}
+            style={(me.loading || imageLoading) ? {height:0,width:0}:{height:70,width:70}}
           />
           <S.MyInfo>
             {me.loading ? (

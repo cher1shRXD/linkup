@@ -11,7 +11,6 @@ const Header = ({title}:{title:string}) => {
 
   return (
     <S.Container>
-      <S.HeaderText>{title}</S.HeaderText>
       <S.LogoImg
         source={
           theme.backgroundColor === "#1b1b1b"
@@ -19,6 +18,7 @@ const Header = ({title}:{title:string}) => {
             : require("../../assets/logo_black.png")
         }
       />
+      <S.HeaderText>{title}</S.HeaderText>
       <S.Filler />
       <TouchableOpacity
         activeOpacity={0.7}

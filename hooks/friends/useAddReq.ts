@@ -8,7 +8,7 @@ const useAddReq = () => {
   const addReq = async (linkupId:string) => {
     setLoading(true);
     try{
-      const res = await instance.post(`/friend-requests/${linkupId}`);
+      const res = await instance.post(`/friend-requests`,{},{params:{linkupId}});
       Alert.alert('친구요청 성공', '친구 요청이 성공적으로 전송되었습니다.')
       setLoading(false);
       return res.data.data;

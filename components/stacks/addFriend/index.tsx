@@ -48,18 +48,29 @@ const AddFriend = () => {
                   <S.ProfileImg src={search.result.profileImage} />
                   <S.Nickname>{search.result.nickname}</S.Nickname>
                   {search.result.isFriend ? (
-                    <S.AddBtn 
-                      onPress={()=>{
-                        addUser.addReq(search.result.linkupId);
-                      }}
-                      disabled={addUser.loading}
-                    >
+                    <S.AddBtn>
                       <S.ButtonText>채팅하기</S.ButtonText>
                     </S.AddBtn>
                   ) : (
-                    <S.AddBtn>
-                      <S.ButtonText>추가하기</S.ButtonText>
-                    </S.AddBtn>
+                    <>
+                      {
+                        search.result.isFriendRequestSent ? (
+                          <S.SentBtn>
+                            <S.SentBtnText>요청됨</S.SentBtnText>
+                          </S.SentBtn>
+                        ) : (
+                          <S.AddBtn
+                            onPress={() => {
+                              addUser.addReq(search.result.linkupId);
+                              search.searchUser();
+                            }}
+                            disabled={addUser.loading}
+                          >
+                            <S.ButtonText>추가하기</S.ButtonText>
+                          </S.AddBtn>
+                        )
+                      } 
+                    </>
                   )}
                 </S.SearchResultWrap>
               ) : (

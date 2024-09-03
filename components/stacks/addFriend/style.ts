@@ -63,3 +63,18 @@ export const ButtonText = styled.Text`
   font-size:15px;
   color:white;
 `
+
+export const SentBtn = styled.View`
+  background-color: #135ba1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+`;
+
+export const SentBtnText = styled.Text`
+  font-size:15px;
+  color:#ccc;
+`

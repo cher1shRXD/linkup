@@ -66,11 +66,11 @@ const EditProfileImg = ({ user }: { user: User }) => {
 
   return (
     <S.Container>
-      {upload.loading ||
+      {(upload.loading ||
         me.loading ||
-        (imageLoading && (
+        imageLoading) && (
           <Skeleton width={100} height={100} style={{ borderRadius: 10 }} />
-        ))}
+        )}
       <S.ProfileImg
         src={user.profileImage}
         onLoadStart={() => {
@@ -80,7 +80,7 @@ const EditProfileImg = ({ user }: { user: User }) => {
           setImageLoading(false);
         }}
         style={
-          me.loading || imageLoading
+          (me.loading || imageLoading)
             ? { height: 0, width: 0 }
             : { height: 100, width: 100 }
         }
