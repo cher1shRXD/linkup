@@ -11,7 +11,7 @@ const useChangeStatusMessage = () => {
 
   const submit = async () => {
     setLoading(true);
-    const res = await instance.patch("/users/me", {
+    const res = await instance.patch("/me", {
       statusMessage,
     });
     if (res) {

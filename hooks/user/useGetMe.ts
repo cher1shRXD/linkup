@@ -7,7 +7,7 @@ const useGetMe = () => {
   const setUser = userStore(state=>state.setUser);
   const getMe = async () => {
     setLoading(true);
-    const res = await instance.get("/users/me");
+    const res = await instance.get("/me");
     if (res) {
       setUser(res.data.data);
       setLoading(false);

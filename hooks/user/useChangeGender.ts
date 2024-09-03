@@ -11,7 +11,7 @@ const useChangeGender = () => {
 
   const submit = async () => {
     setLoading(true);
-    const res = await instance.patch("/users/me", {
+    const res = await instance.patch("/me", {
       gender:newGender,
     });
     if (res) {

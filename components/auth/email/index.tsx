@@ -31,7 +31,7 @@ const Email = () => {
     }
     try{
       const res = await axios.get(
-        "https://eb1f-175-202-245-36.ngrok-free.app/auth/check",
+        "https://3d74-221-168-22-204.ngrok-free.app/auth/check",
         { params: { email: signup.signupData.email } }
       );
       if(res && !res.data.data.email){

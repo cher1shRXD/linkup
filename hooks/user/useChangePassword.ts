@@ -16,7 +16,7 @@ const useChangePassword = () => {
 
   const submit = async () => {
     setLoading(true);
-    const res = await instance.patch("/users/me", {
+    const res = await instance.patch("/me", {
       password,
       currentPassword
     });

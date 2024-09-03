@@ -5,7 +5,7 @@ import axios from "axios";
 const useUpload = () => {
   const [loading,setLoading] = useState<boolean>(false);
 
-  const upload = async (uri:string) : Promise<string> => {
+  const upload = async (uri:string) => {
     setLoading(true);
     const filename = uri.split("/").pop();
     const match = /\.(\w+)$/.exec(filename ?? "");
@@ -14,19 +14,18 @@ const useUpload = () => {
     formData.append("files", { uri, name: filename, type });
     
     const res = await axios.post(
-      "https://eb1f-175-202-245-36.ngrok-free.app/files/upload",
+      "https://3d74-221-168-22-204.ngrok-free.app/files/upload",
       formData,
       {
-        headers : {
-          "Content-Type":'multipart/form-data'
-        }
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }
     );
     if(res){
-      console.log(res.data[0]);
-      setLoading(true);
+      setLoading(false);
+      return res.data.data[0]; 
     }
-    return res.data[0];
   }
   return {
     upload,

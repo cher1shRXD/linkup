@@ -5,7 +5,7 @@ const useDeleteImg = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const deleteImg = async () => {
     setLoading(true);
-    const res = await instance.patch("/users/me", {
+    const res = await instance.patch("/me", {
       profileImage:
         "https://cdn2.ppomppu.co.kr/zboard/data3/2022/0509/m_20220509173224_d9N4ZGtBVR.jpeg",
     });

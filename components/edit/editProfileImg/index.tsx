@@ -9,7 +9,6 @@ import useChangeImg from "../../../hooks/user/useChangeImg";
 import useDeleteImg from "../../../hooks/user/useDeleteImg";
 import * as ImagePicker from "expo-image-picker";
 import { User } from "../../../types/auth/user.type";
-import { useEffect } from "react";
 
 const EditProfileImg = ({ user }: { user: User }) => {
   const { theme } = useTheme();
@@ -65,7 +64,7 @@ const EditProfileImg = ({ user }: { user: User }) => {
 
   return (
     <S.Container>
-      {me.loading ? (
+      {upload.loading || me.loading ? (
         <Skeleton width={100} height={100} style={{ borderRadius: 10 }} />
       ) : (
         <S.ProfileImg src={user.profileImage} />

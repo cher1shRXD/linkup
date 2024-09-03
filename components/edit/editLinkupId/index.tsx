@@ -15,7 +15,7 @@ const EditLinkupId = ({ user }: { user: User }) => {
   const inputRef = useRef<TextInput | null>(null);
 
   const checkCanChange = async () => {
-    const res = await instance.get("/users/me/linkup-id");
+    const res = await instance.get("/me/can-change-linkup-id");
     if (res) {
       setCanChange(res.data.data);
     }

@@ -24,7 +24,7 @@ const useChangeBirthday = () => {
       return;
     }
     setLoading(true);
-    const res = await instance.patch("/users/me", {
+    const res = await instance.patch("/me", {
       birthday:formatDate(newBirthday),
     });
     if (res) {

@@ -25,7 +25,7 @@ const useLogin = () => {
     setLoading(true);
     try{
       const res = await axios.post(
-        "https://eb1f-175-202-245-36.ngrok-free.app/auth/login",
+        "https://3d74-221-168-22-204.ngrok-free.app/auth/login",
         { email, password }
       );
       if(res){

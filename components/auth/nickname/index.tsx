@@ -24,7 +24,6 @@ const Nickname = () => {
       <StackHeader title="뒤로가기" />
       <Pressable style={{ flex: 1, width: "100%" }} onPress={Keyboard.dismiss}>
         <S.Title>닉네임을 정해주세요</S.Title>
-        <S.Subtitle>닉네임은 친구추가시 이용 됩니다.</S.Subtitle>
         <S.InputWrap>
           <S.Input
             style={{

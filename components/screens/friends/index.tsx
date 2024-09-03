@@ -139,13 +139,13 @@ const Friends = () => {
               </S.FriendInfo>
             </S.FriendBox>
           )}
-          {friends.friends.map((item, idx) => (
+          {!friends.loading && friends.friends.map((item, idx) => (
             <S.FriendBox
               border={theme.borderColor}
               key={idx}
               isLast={idx === friends.friends.length - 1}
               onPress={() => {
-                navigation.navigate("FriendDetail",{linkupId:item.linkupId})
+                navigation.navigate("FriendDetail",{user:item})
               }}
             >
               <S.FriendPicture src={item.profileImage}/>
