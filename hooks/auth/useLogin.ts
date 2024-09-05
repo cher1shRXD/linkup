@@ -1,9 +1,9 @@
-import { API_URL } from "@env"
 import axios from "axios";
 import { useState } from "react";
 import tokenStore from "../../store/auth/tokenStore";
 import { Alert } from "react-native";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { API_URL } from "../../constants";
 
 const useLogin = () => {
   const [email,setEmail] = useState<string>('');

@@ -1,8 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import tokenStore from "../../store/auth/tokenStore";
-import { Alert } from "react-native";
 import { userStore } from "../../store/auth/userStore";
-import { API_URL } from "@env";
+import { API_URL } from "../../constants";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;

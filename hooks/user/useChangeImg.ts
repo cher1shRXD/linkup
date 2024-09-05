@@ -1,6 +1,6 @@
 import { useState } from "react"
 import instance from "../../libs/axios/instance";
-import { API_URL } from "@env";
+import { API_URL } from "../../constants";
 
 const useChangeImg = () => {
   const [loading, setLoading] = useState<boolean>(false);

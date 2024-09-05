@@ -41,7 +41,7 @@ const EditProfileImg = ({ user }: { user: User }) => {
       return;
     }
     try {
-      const globalUrl = await upload.upload(result.assets[0].uri);
+      const globalUrl = await upload.upload(result.assets[0]);
       if (globalUrl) {
         const res = await changeImg.changeImg(globalUrl);
         if (res) {
@@ -79,11 +79,7 @@ const EditProfileImg = ({ user }: { user: User }) => {
         onLoadEnd={() => {
           setImageLoading(false);
         }}
-        style={
-          (me.loading || imageLoading)
-            ? { height: 0, width: 0 }
-            : { height: 100, width: 100 }
-        }
+        style={{display: me.loading || imageLoading || upload.loading ? 'none' : 'flex'}}
       />
       <S.ProfileImgBtnWrap>
         <S.ProfileImgBtn

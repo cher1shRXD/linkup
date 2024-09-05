@@ -6,7 +6,7 @@ import useSignup from "../../../hooks/auth/useSignup";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import axios from "axios";
-import { API_URL } from "@env";
+import { API_URL } from "../../../constants";
 
 const Email = () => {
   const [loading, setLoading] = useState<boolean>(false);

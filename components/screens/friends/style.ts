@@ -50,7 +50,7 @@ export const FriendsWrap = styled(ThemedBox)`
   border-radius:10px;
   margin-bottom:15px;
 `
-export const FriendBox = styled.TouchableOpacity<{border:string,isLast:boolean}>`
+export const FriendBox = styled.TouchableOpacity<{border:string,isLast:boolean,bg:string}>`
   width: 100%;
   height: 70px;
   padding: 10px;
@@ -60,6 +60,7 @@ export const FriendBox = styled.TouchableOpacity<{border:string,isLast:boolean}>
   flex-direction: row;
   border-bottom-width:${props=>props.isLast ? "0px" : "1px"};
   border-bottom-color:${props=>props.border};
+  background-color:${props=>props.bg};
 `;
 export const FriendInfo = styled.View`
   flex: 1;
@@ -92,4 +93,10 @@ export const AddFriend = styled(ThemedBox)`
   align-items:center;
   align-self:center;
   margin-bottom:30px;
+  margin-top:15px;
+`
+export const HiddenItemWrap = styled.View`
+  width:70px;
+  height:70px;
+  align-self:flex-end;
 `

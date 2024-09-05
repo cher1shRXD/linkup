@@ -3,7 +3,8 @@ import axios from "axios";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { signupDataStore } from "../../store/signup/signupDataStore";
-import { API_URL } from "@env";
+import { API_URL } from "../../constants";
+
 
 const useSignup = () => {
   const signupData = signupDataStore(state=>state.signupData);

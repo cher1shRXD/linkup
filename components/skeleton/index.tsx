@@ -1,8 +1,10 @@
 import { View, StyleSheet, Animated, ViewStyle } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { useTheme } from "../../context/theme/themeContext";
 
 const Skeleton = ({ width, height, style }:{ width:number, height:number, style:ViewStyle | ViewStyle[] }) => {
   const animatedValue = new Animated.Value(0);
+  const { theme } = useTheme();
 
   Animated.loop(
     Animated.timing(animatedValue, {
@@ -18,7 +20,7 @@ const Skeleton = ({ width, height, style }:{ width:number, height:number, style:
   });
 
   return (
-    <View style={[styles.skeletonContainer, { width, height }, style]}>
+    <View style={[styles.skeletonContainer,{backgroundColor:theme.borderColor}, { width, height }, style]}>
       <Animated.View
         style={{
           ...StyleSheet.absoluteFillObject,
@@ -26,7 +28,7 @@ const Skeleton = ({ width, height, style }:{ width:number, height:number, style:
         }}
       >
         <LinearGradient
-          colors={["#f0f0f0", "#e0e0e0", "#f0f0f0"]}
+          colors={[theme.borderColor, theme.iconColor, theme.borderColor]}
           start={{ x: 0, y: 1 }}
           end={{ x: 1, y: 1 }}
           style={StyleSheet.absoluteFill}
@@ -38,7 +40,6 @@ const Skeleton = ({ width, height, style }:{ width:number, height:number, style:
 
 const styles = StyleSheet.create({
   skeletonContainer: {
-    backgroundColor: "#e0e0e0",
     overflow: "hidden",
   },
 });
