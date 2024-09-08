@@ -7,19 +7,17 @@ import axios from "axios";
 import StackHeader from "../../stackHeader";
 import { useTheme } from "../../../context/theme/themeContext";
 import { Ionicons } from "@expo/vector-icons";
-import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  Pressable,
-} from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 import { ThemedText } from "../../theme";
+import { Chat } from "../../../types/chat/chat.type";
+import { userStore } from "../../../store/auth/userStore";
 
 const GeneralChatRoom = () => {
   const stompClient = useRef<CompatClient | null>(null);
   const accessToken = tokenStore((state) => state.accessToken);
   const { theme } = useTheme();
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<Chat[]>([]);
+  const user = userStore(state=>state.user);
 
   const connect = async () => {
     const websocket = new WebSocket(WS_URL);
@@ -81,46 +79,40 @@ const GeneralChatRoom = () => {
     <S.Container>
       <StackHeader title="general chat" />
       <KeyboardAvoidingView
-        style={{ flex: 1,width:'100%' }}
+        style={{ flex: 1, width: "100%" }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <S.ChatWrap>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
-          <S.OtherChat>
-            <ThemedText>ㅎㅇㅎㅇ</ThemedText>
-          </S.OtherChat>
+          {messages.map((item, idx) => (
+            <S.ChatBoxArea>
+              {user.linkupId === item.sender.linkupId ? (
+                <>
+                  <S.MyChat>
+                    <ThemedText>{item.content}</ThemedText>
+                  </S.MyChat>
+                  {idx !== 0 &&
+                  messages[idx - 1].sender.linkupId === item.sender.linkupId ? (
+                    <S.FillerProfile />
+                  ) : (
+                    <S.Profile src={item.sender.profileImage} />
+                  )}
+                </>
+              ) : (
+                <>
+                  {idx !== 0 &&
+                  messages[idx - 1].sender.linkupId === item.sender.linkupId ? (
+                    <S.FillerProfile />
+                  ) : (
+                    <S.Profile src={item.sender.profileImage} />
+                  )}
+
+                  <S.OtherChat>
+                    <ThemedText>{item.content}</ThemedText>
+                  </S.OtherChat>
+                </>
+              )}
+            </S.ChatBoxArea>
+          ))}
         </S.ChatWrap>
         <S.TextInputWrap color={theme.borderColor}>
           <S.Input

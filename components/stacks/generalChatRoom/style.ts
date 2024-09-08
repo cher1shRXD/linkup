@@ -36,22 +36,35 @@ export const SendButton = styled.TouchableOpacity`
   padding: 10px;
 `;
 
-export const OtherChatBoxArea = styled.View`
+export const ChatBoxArea = styled.View`
   width:100%;
   display:flex;
   flex-direction:row;
 `
-export const OtherProfile = styled.Image`
-  width:50px;
-  height:50px;
-  border-radius:20px;
+export const Profile = styled.Image`
+  width:40px;
+  height:40px;
+  border-radius:5px;
   object-fit:cover;
   object-position:center;
 `
+export const FillerProfile = styled.View`
+  width:40px;
+  height:40px;
+`
 
 export const OtherChat = styled(ThemedBox)`
-  align-self:flex-start;
+  justify-self:flex-start;
   padding:10px 15px;
-  border-radius:10px 10px 10px 0;
-  margin: 5px;
+  border-radius:10px;
+  margin: 3px 10px;
+  max-width:80%;
 `
+
+export const MyChat = styled(ThemedBox)`
+  justify-self:flex-end;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin: 3px 10px;
+  max-width: 80%;
+`;
