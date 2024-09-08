@@ -6,7 +6,6 @@ import FriendDetail from "../stacks/friendDetail";
 import Tabs from "../tabs";
 import Chat from "../screens/chat";
 import ChatRoom from "../stacks/chatRoom";
-import OpenChat from "../screens/openChat";
 import OpenChatRoom from "../stacks/openchatRoom";
 import Settings from "../screens/settings";
 import EditProfile from "../stacks/editProfile";
@@ -26,6 +25,8 @@ import UserId from "../auth/userId";
 import Phone from "../auth/phone";
 import Personal from "../auth/personal";
 import Notification from "../notification";
+import GeneralChat from "../screens/generalChat";
+import GeneralChatRoom from "../stacks/generalChatRoom";
 
 const FriendStackScreen = () => {
   const FriendStack = createStackNavigator();
@@ -54,7 +55,7 @@ const OpenChatStackScreen = () => {
 
   return (
     <FriendStack.Navigator screenOptions={{ headerShown: false }}>
-      <FriendStack.Screen name="OpenChat" component={OpenChat} />
+      <FriendStack.Screen name="OpenChat" component={GeneralChat} />
       <FriendStack.Screen name="OpenChatRoom" component={OpenChatRoom} />
     </FriendStack.Navigator>
   );
@@ -131,6 +132,7 @@ const Router = () => {
       />
       <MainStack.Screen name="NotiScreen" component={Notification} />
       <MainStack.Screen name="FriendDetail" component={FriendDetail} />
+      <MainStack.Screen name="GeneralChatRoom" component={GeneralChatRoom} />
     </MainStack.Navigator>
   );
 };

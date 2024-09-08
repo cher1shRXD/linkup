@@ -15,7 +15,7 @@ export const signupDataStore = create<SignupDataStore>((set) => ({
     linkupId: "",
     phoneNumber: "",
     gender: "",
-    birthday: null,
+    birthday: '',
   },
   setSignupData: (update: Partial<SignupData>) =>
     set((state) => ({
@@ -30,7 +30,7 @@ export const signupDataStore = create<SignupDataStore>((set) => ({
         linkupId: "",
         phoneNumber: "",
         gender: "",
-        birthday: null,
+        birthday: '',
       },
     }),
 }));
