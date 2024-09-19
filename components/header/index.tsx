@@ -10,13 +10,6 @@ const Header = ({ title }: { title: string }) => {
 
   return (
     <S.Container>
-      {/* <S.LogoImg
-        source={
-          theme.backgroundColor === "#1b1b1b"
-            ? require("../../assets/logo_white.png")
-            : require("../../assets/logo_black.png")
-        }
-      /> */}
       <S.HeaderText>{title}</S.HeaderText>
       <S.Filler />
       <TouchableOpacity

@@ -7,34 +7,40 @@ import {
 } from "react";
 import { useColorScheme } from "react-native";
 
-type Theme = {
+interface Theme {
   backgroundColor: string;
   textColor: string;
   borderColor: string;
   iconColor: string;
   boxColor: string;
-};
+  boxBorderColor: string;
+  grayTextColor: string;
+}
 
 const lightTheme: Theme = {
   backgroundColor: "#FFFFFF",
   textColor: "#000000",
-  borderColor: "#E1E1E1",
+  borderColor: "#F8F8F8",
   iconColor: "#000",
   boxColor: "#F1F1F1",
+  boxBorderColor: "#E1E1E1",
+  grayTextColor: "#888888",
 };
 
 const darkTheme: Theme = {
-  backgroundColor: "#1b1b1b",
+  backgroundColor: "#101010",
   textColor: "#FFFFFF",
-  borderColor: "#242424",
+  borderColor: "#151515",
   iconColor: "#b5b5b5",
   boxColor: "#1f2021",
+  boxBorderColor: "#242424",
+  grayTextColor: "#888888",
 };
 
-type ThemeContextType = {
+interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
-};
+}
 
 const ThemeContext = createContext<ThemeContextType>({
   theme: lightTheme,

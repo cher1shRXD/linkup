@@ -10,7 +10,10 @@ const useGetMe = () => {
     const res = await instance.get("/me");
     if (res) {
       setUser(res.data.data);
-      setLoading(false);
+      setTimeout(()=>{
+        setLoading(false);
+      },1000);
+      
     }
   }
   return{

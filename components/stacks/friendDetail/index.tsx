@@ -5,11 +5,18 @@ import { useTheme } from "../../../context/theme/themeContext";
 import { Text } from "react-native";
 import { useState } from "react";
 import Skeleton from "../../skeleton";
+import useCreateRoom from "../../../hooks/chat/useCreateRoom";
 
 const FriendDetail = ({ route }: any) => {
   const { theme } = useTheme();
   const { user } = route.params;
+  const { createRoom } = useCreateRoom();
   const [imageLoading, setImageLoading] = useState<boolean>(false);
+
+  const goChat = () => {
+    createRoom(user.linkupId);
+  }
+
 
   return (
     <S.Container>
@@ -34,7 +41,7 @@ const FriendDetail = ({ route }: any) => {
       <S.InfoWrap>
         <S.Name>{user.nickname}</S.Name>
         <S.Status>{user.statusMessage}</S.Status>
-        <S.GoChat>
+        <S.GoChat onPress={goChat}>
           <Ionicons
             name="chatbox-ellipses-outline"
             size={45}

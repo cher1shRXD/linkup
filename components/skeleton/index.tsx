@@ -28,7 +28,7 @@ const Skeleton = ({ width, height, style }:{ width:number, height:number, style:
         }}
       >
         <LinearGradient
-          colors={[theme.borderColor, theme.iconColor, theme.borderColor]}
+          colors={[theme.borderColor, theme.boxBorderColor, theme.borderColor]}
           start={{ x: 0, y: 1 }}
           end={{ x: 1, y: 1 }}
           style={StyleSheet.absoluteFill}

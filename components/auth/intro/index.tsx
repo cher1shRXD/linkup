@@ -20,7 +20,7 @@ const Intro = () => {;
     <S.Container>
       <S.LogoImg
         source={
-          theme.backgroundColor === "#1b1b1b"
+          theme.backgroundColor === "#101010"
             ? require("../../../assets/logo_white.png")
             : require("../../../assets/logo_black.png")
         }

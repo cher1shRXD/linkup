@@ -72,7 +72,7 @@ const Friends = () => {
                 }}
               />
               <S.MyInfo>
-                {me.loading ? (
+                {me.loading || imageLoading ? (
                   <>
                     <Skeleton
                       width={100}
@@ -103,6 +103,7 @@ const Friends = () => {
             key={item.linkupId}
             isLast={index === friends.friends.length - 1}
             activeOpacity={1}
+            
             onPress={() => {
               navigation.navigate("FriendDetail", { user: item });
             }}

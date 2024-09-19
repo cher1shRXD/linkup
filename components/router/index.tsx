@@ -5,7 +5,6 @@ import Friends from "../screens/friends";
 import FriendDetail from "../stacks/friendDetail";
 import Tabs from "../tabs";
 import Chat from "../screens/chat";
-import ChatRoom from "../stacks/chatRoom";
 import OpenChatRoom from "../stacks/openchatRoom";
 import Settings from "../screens/settings";
 import EditProfile from "../stacks/editProfile";
@@ -27,50 +26,7 @@ import Personal from "../auth/personal";
 import Notification from "../notification";
 import GeneralChat from "../screens/generalChat";
 import GeneralChatRoom from "../stacks/generalChatRoom";
-
-const FriendStackScreen = () => {
-  const FriendStack = createStackNavigator();
-
-  return (
-    <FriendStack.Navigator screenOptions={{ headerShown: false }}>
-      <FriendStack.Screen name="Friends" component={Friends} />
-      <FriendStack.Screen name="AddFriend" component={AddFriend} />
-    </FriendStack.Navigator>
-  );
-};
-
-const ChatStackScreen = () => {
-  const FriendStack = createStackNavigator();
-
-  return (
-    <FriendStack.Navigator screenOptions={{ headerShown: false }}>
-      <FriendStack.Screen name="Chat" component={Chat} />
-      <FriendStack.Screen name="ChatRoom" component={ChatRoom} />
-    </FriendStack.Navigator>
-  );
-};
-
-const OpenChatStackScreen = () => {
-  const FriendStack = createStackNavigator();
-
-  return (
-    <FriendStack.Navigator screenOptions={{ headerShown: false }}>
-      <FriendStack.Screen name="OpenChat" component={GeneralChat} />
-      <FriendStack.Screen name="OpenChatRoom" component={OpenChatRoom} />
-    </FriendStack.Navigator>
-  );
-};
-
-const SettingStackScreen = () => {
-  const FriendStack = createStackNavigator();
-
-  return (
-    <FriendStack.Navigator screenOptions={{ headerShown: false }}>
-      <FriendStack.Screen name="Settings" component={Settings} />
-      <FriendStack.Screen name="EditProfileScreen" component={EditProfile} />
-    </FriendStack.Navigator>
-  );
-};
+import PersonalChatRoom from "../stacks/personalChatRoom";
 
 const TabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -80,10 +36,10 @@ const TabScreen = () => {
       screenOptions={{ headerShown: false, tabBarStyle: { display: "none" } }}
       tabBar={(props) => <Tabs {...props} />}
     >
-      <Tab.Screen name="FriendsScreen" component={FriendStackScreen} />
-      <Tab.Screen name="ChatScreen" component={ChatStackScreen} />
-      <Tab.Screen name="OpenChatScreen" component={OpenChatStackScreen} />
-      <Tab.Screen name="SettingScreen" component={SettingStackScreen} />
+      <Tab.Screen name="FriendsScreen" component={Friends} />
+      <Tab.Screen name="ChatScreen" component={Chat} />
+      <Tab.Screen name="OpenChatScreen" component={GeneralChat} />
+      <Tab.Screen name="SettingScreen" component={Settings} />
     </Tab.Navigator>
   );
 };
@@ -133,6 +89,10 @@ const Router = () => {
       <MainStack.Screen name="NotiScreen" component={Notification} />
       <MainStack.Screen name="FriendDetail" component={FriendDetail} />
       <MainStack.Screen name="GeneralChatRoom" component={GeneralChatRoom} />
+      <MainStack.Screen name="PersonalChatRoom" component={PersonalChatRoom} />
+      <MainStack.Screen name="AddFriend" component={AddFriend} />
+      <MainStack.Screen name="OpenChatRoom" component={OpenChatRoom} />
+      <MainStack.Screen name="EditProfileScreen" component={EditProfile} />
     </MainStack.Navigator>
   );
 };

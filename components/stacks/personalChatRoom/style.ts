@@ -5,23 +5,22 @@ export const Container = styled(ThemedView)`
   width: 100%;
   flex: 1;
   align-items: center;
-  padding-bottom:20px;
+  padding-bottom: 20px;
 `;
 export const ChatWrap = styled.FlatList`
   width: 100%;
   flex: 1;
-  padding:15px;
-  box-sizing:border-box;
-  padding-bottom:50px;
-
+  padding: 15px;
+  box-sizing: border-box;
+  padding-bottom: 50px;
 `;
-export const TextInputWrap = styled.View<{color:string}>`
+export const TextInputWrap = styled.View<{ color: string }>`
   width: 100%;
   height: 60px;
   border-top-width: 1px;
-  border-top-color: ${props=>props.color};
-  display:flex;
-  flex-direction:row;
+  border-top-color: ${(props) => props.color};
+  display: flex;
+  flex-direction: row;
   padding: 10px;
 `;
 
@@ -33,34 +32,34 @@ export const Input = styled.TextInput`
 `;
 
 export const SendButton = styled.TouchableOpacity`
-  width:40px;
+  width: 40px;
   padding: 10px;
 `;
 
 export const ChatBoxArea = styled.View`
-  width:100%;
-  display:flex;
-  flex-direction:row;
-`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
 export const Profile = styled.Image`
-  width:40px;
-  height:40px;
-  border-radius:5px;
-  object-fit:cover;
-  object-position:center;
-`
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
+`;
 export const FillerProfile = styled.View`
-  width:40px;
-  height:40px;
-`
+  width: 40px;
+  height: 40px;
+`;
 
 export const OtherChat = styled(ThemedBox)`
-  justify-self:flex-start;
-  padding:10px 15px;
-  border-radius:10px;
+  justify-self: flex-start;
+  padding: 10px 15px;
+  border-radius: 10px;
   margin: 3px 10px;
-  max-width:80%;
-`
+  max-width: 80%;
+`;
 
 export const MyChat = styled(ThemedBox)`
   justify-self: flex-end;
@@ -71,6 +70,6 @@ export const MyChat = styled(ThemedBox)`
   background-color: #1e90ff;
 `;
 export const Filler = styled.View`
-  width:100%;
-  height:30px;
-`
+  width: 100%;
+  height: 30px;
+`;

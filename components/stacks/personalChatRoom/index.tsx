@@ -15,15 +15,16 @@ import { ThemedText } from "../../theme";
 import { Chat } from "../../../types/chat/chat.type";
 import { userStore } from "../../../store/auth/userStore";
 import { Ionicons } from "@expo/vector-icons";
+import instance from "../../../libs/axios/instance";
 
-const GeneralChatRoom = () => {
+const PersonalChatRoom = ({route}:{route?:{params:{linkupId:string,roomId:string}}}) => {
   const stompClient = useRef<CompatClient | null>(null);
   const accessToken = tokenStore((state) => state.accessToken);
   const { theme } = useTheme();
   const [messages, setMessages] = useState<Chat[]>([]);
   const [content, setContent] = useState<string>("");
   const user = userStore((state) => state.user);
-  const scrollViewRef = useRef<FlatList|null>(null);
+  const scrollViewRef = useRef<FlatList | null>(null);
 
   const connect = async () => {
     const websocket = new WebSocket(WS_URL);
@@ -32,7 +33,7 @@ const GeneralChatRoom = () => {
       { Authorization: accessToken },
       () => {
         stompClient.current!.subscribe(
-          `/exchange/linkup.exchange/room.general`,
+          `/exchange/linkup.exchange/room.${route!.params.roomId}`,
           (message) => {
             const newMessage = JSON.parse(message.body);
             setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -67,9 +68,7 @@ const GeneralChatRoom = () => {
 
   const getMessages = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/chat-messages/general`, {
-        headers: { Authorization: accessToken },
-      });
+      const { data } = await instance.get(`/chat-rooms/personal/${route!.params.linkupId}`)
       setMessages(data.data);
     } catch (e) {
       console.error(e);
@@ -129,7 +128,7 @@ const GeneralChatRoom = () => {
 
   return (
     <S.Container>
-      <StackHeader title="General Chat" />
+      <StackHeader title='개인채팅' />
       <KeyboardAvoidingView
         style={{ flex: 1, width: "100%" }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -169,4 +168,4 @@ const GeneralChatRoom = () => {
   );
 };
 
-export default GeneralChatRoom;
+export default PersonalChatRoom;
