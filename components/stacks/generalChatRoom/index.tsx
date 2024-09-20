@@ -105,8 +105,9 @@ const GeneralChatRoom = () => {
     return (
       <S.ChatBoxArea
         style={{
+          width:'100%',
           justifyContent: isMe ? "flex-end" : "flex-start",
-          flexDirection: isMe ? "row-reverse" : "row",
+          flexDirection: isMe ? "row" : "row-reverse",
         }}
       >
         {isMe ? (
@@ -136,7 +137,7 @@ const GeneralChatRoom = () => {
       >
         <FlatList
           data={messages}
-          style={{ width: "100%", flex: 1 }}
+          style={{ width: "100%", flex: 1,paddingHorizontal:10 }}
           renderItem={renderItem}
           keyExtractor={(item) => String(item.id)}
           ref={scrollViewRef}
