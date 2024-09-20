@@ -1,2 +1,2 @@
-export const API_URL = "https://1841-221-168-22-204.ngrok-free.app";
-export const WS_URL = "ws://1841-221-168-22-204.ngrok-free.app/ws";
+export const API_URL = "http://10.80.162.171";
+export const WS_URL = "ws://10.80.162.171/ws";

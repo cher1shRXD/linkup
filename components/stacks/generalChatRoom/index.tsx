@@ -106,7 +106,7 @@ const GeneralChatRoom = () => {
       <S.ChatBoxArea
         style={{
           justifyContent: isMe ? "flex-end" : "flex-start",
-          flexDirection: isMe ? "row" : "row-reverse",
+          flexDirection: isMe ? "row-reverse" : "row",
         }}
       >
         {isMe ? (
