@@ -2,19 +2,20 @@ import { useEffect, useRef, useState } from "react";
 import * as S from "./style";
 import { CompatClient, Stomp } from "@stomp/stompjs";
 import tokenStore from "../../../store/auth/tokenStore";
-import { API_URL, WS_URL } from "../../../constants";
-import axios from "axios";
+import { WS_URL } from "../../../constants";
 import StackHeader from "../../stackHeader";
 import { useTheme } from "../../../context/theme/themeContext";
 import {
   FlatList,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
 } from "react-native";
 import { ThemedText } from "../../theme";
 import { Chat } from "../../../types/chat/chat.type";
 import { userStore } from "../../../store/auth/userStore";
 import { Ionicons } from "@expo/vector-icons";
+import instance from "../../../libs/axios/instance";
 
 const GeneralChatRoom = () => {
   const stompClient = useRef<CompatClient | null>(null);
@@ -23,11 +24,12 @@ const GeneralChatRoom = () => {
   const [messages, setMessages] = useState<Chat[]>([]);
   const [content, setContent] = useState<string>("");
   const user = userStore((state) => state.user);
-  const scrollViewRef = useRef<FlatList|null>(null);
+  const flatListRef = useRef<FlatList | null>(null);
+  const [isAtBottom, setIsAtBottom] = useState(true);
+  const ACCESS_TOKEN = tokenStore(state=>state.accessToken);
 
   const connect = async () => {
-    const websocket = new WebSocket(WS_URL);
-    stompClient.current = Stomp.over(() => websocket);
+    stompClient.current = Stomp.client(WS_URL);
     stompClient.current.connect(
       { Authorization: accessToken },
       () => {
@@ -35,6 +37,7 @@ const GeneralChatRoom = () => {
           `/exchange/linkup.exchange/room.general`,
           (message) => {
             const newMessage = JSON.parse(message.body);
+            console.log(newMessage);
             setMessages((prevMessages) => [...prevMessages, newMessage]);
           }
         );
@@ -50,8 +53,8 @@ const GeneralChatRoom = () => {
     if (stompClient.current && content.trim().length !== 0) {
       stompClient.current.send(
         "/pub/send-general-message",
-        { Authorization: accessToken },
-        JSON.stringify({ content })
+        {Authorization:ACCESS_TOKEN},
+        JSON.stringify({ content }),
       );
       setContent("");
     }
@@ -67,9 +70,7 @@ const GeneralChatRoom = () => {
 
   const getMessages = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/chat-messages/general`, {
-        headers: { Authorization: accessToken },
-      });
+      const { data } = await instance.get(`/chat-messages/general`);
       setMessages(data.data);
     } catch (e) {
       console.error(e);
@@ -81,12 +82,6 @@ const GeneralChatRoom = () => {
   };
 
   useEffect(() => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollToEnd({ animated: true });
-    }
-  }, [messages]);
-
-  useEffect(() => {
     connect();
     getMessages();
 
@@ -94,6 +89,20 @@ const GeneralChatRoom = () => {
       disconnect();
     };
   }, []);
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      flatListRef.current?.scrollToEnd();
+    },200);
+  },[messages]);
+
+  const handleScroll = (event: any) => {
+    const { contentOffset, contentSize, layoutMeasurement } = event.nativeEvent;
+    const atBottom =
+      contentOffset.y + layoutMeasurement.height >= contentSize.height - 20;
+
+    setIsAtBottom(atBottom);
+  };
 
   const renderItem = ({ item }: { item: Chat }) => {
     const isMe = item.sender.linkupId === user.linkupId;
@@ -105,8 +114,8 @@ const GeneralChatRoom = () => {
     return (
       <S.ChatBoxArea
         style={{
-          width:'100%',
-          justifyContent: isMe ? "flex-end" : "flex-start",
+          width: "100%",
+          justifyContent: "flex-end",
           flexDirection: isMe ? "row" : "row-reverse",
         }}
       >
@@ -135,14 +144,30 @@ const GeneralChatRoom = () => {
         style={{ flex: 1, width: "100%" }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <FlatList
-          data={messages}
-          style={{ width: "100%", flex: 1,paddingHorizontal:10 }}
-          renderItem={renderItem}
-          keyExtractor={(item) => String(item.id)}
-          ref={scrollViewRef}
-        />
-        <S.Filler />
+        <SafeAreaView style={{ width: "100%", flex: 1 }}>
+          {messages.length > 0 && (
+            <FlatList
+              data={messages}
+              style={{
+                width: "100%",
+                flex: 1,
+                paddingHorizontal: 10,
+              }}
+              renderItem={renderItem}
+              keyExtractor={(item) => String(item.id)}
+              ref={flatListRef}
+              onScroll={handleScroll}
+              bounces={false} 
+              overScrollMode="never"
+              initialScrollIndex={messages.length - 1}
+              getItemLayout={(data, index) => ({
+                length: 50, 
+                offset: 50 * index,
+                index,
+              })}
+            />
+          )}
+        </SafeAreaView>
         <S.TextInputWrap color={theme.borderColor}>
           <S.Input
             style={{

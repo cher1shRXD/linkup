@@ -4,7 +4,7 @@ import * as S from "./style";
 import { useEffect, useState } from "react";
 import { useTheme } from "../../../context/theme/themeContext";
 import { Ionicons } from "@expo/vector-icons";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { NavigationProp, useFocusEffect, useNavigation } from "@react-navigation/native";
 import Skeleton from "../../skeleton";
 import useGetMe from "../../../hooks/user/useGetMe";
 import { userStore } from "../../../store/auth/userStore";
@@ -98,7 +98,7 @@ const Friends = () => {
         }
         renderItem={({ item, index }) => (
           <S.FriendBox
-            border={theme.borderColor}
+            border={theme.boxBorderColor}
             bg={theme.boxColor}
             key={item.linkupId}
             isLast={index === friends.friends.length - 1}

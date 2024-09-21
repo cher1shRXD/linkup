@@ -2,14 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import * as S from "./style";
 import { CompatClient, Stomp } from "@stomp/stompjs";
 import tokenStore from "../../../store/auth/tokenStore";
-import { API_URL, WS_URL } from "../../../constants";
-import axios from "axios";
+import { WS_URL } from "../../../constants";
 import StackHeader from "../../stackHeader";
 import { useTheme } from "../../../context/theme/themeContext";
 import {
   FlatList,
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
 } from "react-native";
 import { ThemedText } from "../../theme";
 import { Chat } from "../../../types/chat/chat.type";
@@ -17,14 +17,14 @@ import { userStore } from "../../../store/auth/userStore";
 import { Ionicons } from "@expo/vector-icons";
 import instance from "../../../libs/axios/instance";
 
-const PersonalChatRoom = ({route}:{route?:{params:{linkupId:string,roomId:string}}}) => {
+const PersonalChatRoom = ({route}:{route?:{params:{linkupId:string, roomId:string}}}) => {
   const stompClient = useRef<CompatClient | null>(null);
   const accessToken = tokenStore((state) => state.accessToken);
   const { theme } = useTheme();
   const [messages, setMessages] = useState<Chat[]>([]);
   const [content, setContent] = useState<string>("");
   const user = userStore((state) => state.user);
-  const scrollViewRef = useRef<FlatList | null>(null);
+  const flatListRef = useRef<FlatList | null>(null);
 
   const connect = async () => {
     const websocket = new WebSocket(WS_URL);
@@ -68,7 +68,9 @@ const PersonalChatRoom = ({route}:{route?:{params:{linkupId:string,roomId:string
 
   const getMessages = async () => {
     try {
-      const { data } = await instance.get(`/chat-rooms/personal/${route!.params.linkupId}`)
+      const { data } = await instance.get(
+        `/chat-messages/${route!.params.roomId}`
+      );
       setMessages(data.data);
     } catch (e) {
       console.error(e);
@@ -80,12 +82,6 @@ const PersonalChatRoom = ({route}:{route?:{params:{linkupId:string,roomId:string
   };
 
   useEffect(() => {
-    if (scrollViewRef.current) {
-      scrollViewRef.current.scrollToEnd({ animated: true });
-    }
-  }, [messages]);
-
-  useEffect(() => {
     connect();
     getMessages();
 
@@ -93,6 +89,10 @@ const PersonalChatRoom = ({route}:{route?:{params:{linkupId:string,roomId:string
       disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    flatListRef.current?.scrollToEnd({ animated: true });
+  }, [messages]);
 
   const renderItem = ({ item }: { item: Chat }) => {
     const isMe = item.sender.linkupId === user.linkupId;
@@ -104,7 +104,8 @@ const PersonalChatRoom = ({route}:{route?:{params:{linkupId:string,roomId:string
     return (
       <S.ChatBoxArea
         style={{
-          justifyContent: isMe ? "flex-end" : "flex-start",
+          width: "100%",
+          justifyContent: "flex-end",
           flexDirection: isMe ? "row" : "row-reverse",
         }}
       >
@@ -128,19 +129,24 @@ const PersonalChatRoom = ({route}:{route?:{params:{linkupId:string,roomId:string
 
   return (
     <S.Container>
-      <StackHeader title='개인채팅' />
+      <StackHeader title={route!.params.linkupId} />
       <KeyboardAvoidingView
         style={{ flex: 1, width: "100%" }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        <FlatList
-          data={messages}
-          style={{ width: "100%", flex: 1 }}
-          renderItem={renderItem}
-          keyExtractor={(item) => String(item.id)}
-          ref={scrollViewRef}
-        />
-        <S.Filler />
+        <SafeAreaView style={{ width: "100%", flex: 1 }}>
+          <FlatList
+            data={messages}
+            style={{
+              width: "100%",
+              flex: 1,
+              paddingHorizontal: 10,
+            }}
+            renderItem={renderItem}
+            keyExtractor={(item) => String(item.id)}
+            ref={flatListRef}
+          />
+        </SafeAreaView>
         <S.TextInputWrap color={theme.borderColor}>
           <S.Input
             style={{

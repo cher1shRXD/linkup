@@ -4,17 +4,18 @@ import StackHeader from "../stackHeader";
 import * as S from "./style";
 import { RefreshControl, ScrollView, Text } from "react-native";
 import tokenStore from "../../store/auth/tokenStore";
-import { ThemedText } from "../theme";
 import { useTheme } from "../../context/theme/themeContext";
 import Skeleton from "../skeleton";
 import { Ionicons } from "@expo/vector-icons";
 import useAcceptReq from "../../hooks/friends/useAcceptReq";
 import useRejectReq from "../../hooks/friends/useRejectReq";
-import useGetMe from "../../hooks/user/useGetMe";
+import useGetFriends from "../../hooks/friends/useGetFriends";
+
 
 const Notification = () => {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const { ...friendReq } = useGetFriendReq();
+  const { ...friends } = useGetFriends();
   const { acceptReq } = useAcceptReq();
   const { rejectReq } = useRejectReq();
   const ACCESS_TOKEN = tokenStore((state) => state.accessToken);
@@ -25,6 +26,16 @@ const Notification = () => {
     if (ACCESS_TOKEN) {
       friendReq.getFriendReq();
     }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      const handleUnmount = async () => {
+        await friends.getFriends();
+      };
+
+      handleUnmount();
+    };
   }, []);
 
   const onRefresh = () => {
